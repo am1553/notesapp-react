@@ -27,12 +27,6 @@
         @apply text-neutral-600
     }
 
-    .primary-focus:focus-visible {
-        box-shadow: 0px 0px 0px 2px #fff, 0px 0px 0px 4px #99a0ae;
-    }
-    .secondary-focus:focus-visible {
-        box-shadow: 0px 0px 0px 2px #fff, 0px 0px 0px 4px #99a0ae;
-    }
     .font-pacifico {
         font-family: "Pacifico", cursive;;
     }

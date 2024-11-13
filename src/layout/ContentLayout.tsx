@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-export default function SectionLayout({
+export default function ContentLayout({
   children,
   className,
 }: {

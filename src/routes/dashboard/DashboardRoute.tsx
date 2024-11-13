@@ -1,13 +1,13 @@
 import { DashboardLayout } from "../../layout";
 import { Outlet } from "react-router-dom";
-import SectionLayout from "../../layout/SectionLayout.tsx";
+import ContentLayout from "../../layout/ContentLayout.tsx";
 
 export default function DashboardRoute() {
   return (
     <DashboardLayout>
-      <SectionLayout>
+      <ContentLayout>
         <Outlet />
-      </SectionLayout>
+      </ContentLayout>
     </DashboardLayout>
   );
 }
