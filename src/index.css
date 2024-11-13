@@ -1,3 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Pacifico&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* For WebKit browsers like Chrome, Safari */
+::-webkit-scrollbar {
+    width: 4px; /* Adjust this value to set the scrollbar width */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #888; /* Customize the scrollbar thumb color */
+    border-radius: 4px; /* Optional: make it rounded */
+}
+
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Customize the track color */
+}
+
+@layer base {
+    body {
+        @apply text-neutral-950;
+        list-style: none;
+    }
+
+    p {
+        @apply text-neutral-600
+    }
+
+    .primary-focus:focus-visible {
+        box-shadow: 0px 0px 0px 2px #fff, 0px 0px 0px 4px #99a0ae;
+    }
+    .secondary-focus:focus-visible {
+        box-shadow: 0px 0px 0px 2px #fff, 0px 0px 0px 4px #99a0ae;
+    }
+    .font-pacifico {
+        font-family: "Pacifico", cursive;;
+    }
+    .font-source-code-pro {
+        font-family: "Source Code Pro", monospace;
+    }
+    .font-noto-serif {
+        font-family: "Noto Serif", serif;
+    }
+
+    .font-inter {
+        font-family: "Inter", serif;
+    }
+
+    .active-icon {
+        @apply filter;
+        filter: brightness(0) saturate(100%) invert(24%) sepia(69%) saturate(3794%)
+        hue-rotate(228deg) brightness(108%) contrast(101%);
+    }
+
+    .flex-center {
+        @apply flex justify-center items-center;
+    }
+}

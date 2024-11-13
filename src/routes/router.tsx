@@ -10,13 +10,12 @@ const router = createBrowserRouter(
             Component: App,
             children: [
                 {
+                    path: "/",
                     Component: LoginRoute,
-                    children: [
-                        {
-                            path: "/signup",
-                            Component: SignUpRoute,
-                        }
-                    ]
+                },
+                {
+                    path: "/signup",
+                    Component: SignUpRoute,
                 }
             ]
         }
