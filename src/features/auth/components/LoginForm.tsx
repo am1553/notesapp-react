@@ -8,14 +8,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../../components/ui/form.tsx";
-import { Input } from "../../components/ui/input.tsx";
-import ShowPasswordIcon from "../../assets/icon-show-password.svg";
-import HidePasswordIcon from "../../assets/icon-hide-password.svg";
+} from "../../../components/ui/form.tsx";
+import { Input } from "../../../components/ui/input.tsx";
+import ShowPasswordIcon from "../../../assets/icon-show-password.svg";
+import HidePasswordIcon from "../../../assets/icon-hide-password.svg";
 import { useRef } from "react";
-import { Button } from "../../components/ui/button.tsx";
+import { Button } from "../../../components/ui/button.tsx";
 import { Link } from "react-router-dom";
-import { useTogglePasswordVisibility } from "../../hooks";
+import { useTogglePasswordVisibility } from "../../../hooks";
+import useAuth from "../services/useAuth.ts";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Email address is required" }),
@@ -25,6 +26,7 @@ const formSchema = z.object({
 });
 
 export default function LoginForm() {
+  const { signInMutation } = useAuth();
   const passwordInputRef = useRef<HTMLInputElement>(null);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -37,7 +39,7 @@ export default function LoginForm() {
   const [handlePasswordVis, showPassword] =
     useTogglePasswordVisibility(passwordInputRef);
   const handleSubmit = (data: z.infer<typeof formSchema>) => {
-    console.log(data);
+    signInMutation.mutate(data);
   };
 
   return (

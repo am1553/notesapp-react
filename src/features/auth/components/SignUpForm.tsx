@@ -9,13 +9,13 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../../components/ui/form.tsx";
-import { Input } from "../../components/ui/input.tsx";
-import ShowPasswordIcon from "../../assets/icon-show-password.svg";
-import HidePasswordIcon from "../../assets/icon-hide-password.svg";
-import { Button } from "../../components/ui/button.tsx";
+} from "../../../components/ui/form.tsx";
+import { Input } from "../../../components/ui/input.tsx";
+import ShowPasswordIcon from "../../../assets/icon-show-password.svg";
+import HidePasswordIcon from "../../../assets/icon-hide-password.svg";
+import { Button } from "../../../components/ui/button.tsx";
 import { Link } from "react-router-dom";
-import { useTogglePasswordVisibility } from "../../hooks";
+import { useTogglePasswordVisibility } from "../../../hooks";
 
 const formSchema = z.object({
   firstName: z

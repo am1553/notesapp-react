@@ -1,4 +1,5 @@
-import AuthForm from "./AuthForm.tsx";
-import LoginForm from "./LoginForm.tsx";
-import SignUpForm from "./SignUpForm.tsx";
-export { AuthForm, LoginForm, SignUpForm };
+import AuthForm from "./components/AuthForm.tsx";
+import LoginForm from "./components/LoginForm.tsx";
+import SignUpForm from "./components/SignUpForm.tsx";
+import useAuth from "./services/useAuth.ts";
+export { AuthForm, LoginForm, SignUpForm, useAuth };
