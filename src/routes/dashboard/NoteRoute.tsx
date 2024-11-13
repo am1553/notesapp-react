@@ -5,6 +5,7 @@ import ArchiveIcon from "../../assets/icon-archive.svg";
 import TagIcon from "../../assets/icon-tag.svg";
 import ClockIcon from "../../assets/icon-clock.svg";
 import { useNotes } from "../../features/notes";
+import { Button } from "../../components/ui/button.tsx";
 
 export default function NoteRoute() {
   const { noteQuery } = useNotes();
@@ -63,11 +64,17 @@ export default function NoteRoute() {
       <hr />
 
       <textarea
+        placeholder={"Start typing your note here..."}
         name={"description"}
         id=""
         className={"h-full text-neutral-800 outline-none"}
         defaultValue={note.description.replace(/\\n/g, "\n")}
       />
+      <hr className={"max-xl:hidden"} />
+      <div className={"flex w-fit gap-4 max-xl:hidden"}>
+        <Button>Save Note</Button>
+        <Button variant={"secondary"}>Cancel</Button>
+      </div>
     </div>
   );
 }

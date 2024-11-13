@@ -2,6 +2,7 @@ import Logo from "./Logo.tsx";
 import { Input } from "./ui/input.tsx";
 import SearchIcon from "../assets/icon-search.svg";
 import SettingsIcon from "../assets/icon-settings.svg";
+import { Button } from "./ui/button.tsx";
 
 export default function Header({ className }: { className?: string }) {
   return (
@@ -22,11 +23,14 @@ export default function Header({ className }: { className?: string }) {
             alt="search"
             className={"absolute top-2/4 -translate-y-2/4 left-4"}
           />
-          <Input className={"rounded-md pl-12 w-80"} />
+          <Input
+            className={"rounded-md pl-12 w-80"}
+            placeholder={"Search by title, content, or tags…"}
+          />
         </div>
-        <button className={"h-10 w-10 flex-center"}>
+        <Button variant={"ghost"} className={""}>
           <img src={SettingsIcon} height={20} width={20} alt="settings" />
-        </button>
+        </Button>
       </div>
     </header>
   );

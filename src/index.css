@@ -47,12 +47,8 @@
         font-family: "Inter", serif;
     }
 
-    .focus-shadow {
-        box-shadow:  0 0 0 3px #fff, 0 0 0 6px #99A0AE30;
-    }
-
     .focus {
-        @apply focus:outline-none focus:focus-shadow;
+        @apply focus-visible:outline-neutral-950 focus-visible:outline;
     }
 
     .active-icon {
