@@ -1,3 +1,3 @@
 import AuthLayout from "./AuthLayout";
-
-export { AuthLayout };
+import DashboardLayout from "./DashboardLayout.tsx";
+export { AuthLayout, DashboardLayout };

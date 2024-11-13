@@ -3,7 +3,8 @@ import App from "../App.tsx";
 import LoginRoute from "./login/LoginRoute.tsx";
 import SignUpRoute from "./signup/SingUpRoute.tsx";
 import DashboardRoute from "./dashboard/DashboardRoute.tsx";
-import ProtectedRoutes from "./protected";
+import ProtectedRoutes from "./protected/ProtectedRoutes.tsx";
+import NoteRoute from "./note/NoteRoute.tsx";
 
 const router = createBrowserRouter([
   {
@@ -25,8 +26,14 @@ const router = createBrowserRouter([
     Component: ProtectedRoutes,
     children: [
       {
-        path: "dashboard",
+        path: "",
         Component: DashboardRoute,
+        children: [
+          {
+            path: "",
+            Component: NoteRoute,
+          },
+        ],
       },
     ],
   },

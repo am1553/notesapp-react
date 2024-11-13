@@ -4,8 +4,10 @@ import { axiosAPI, axiosAuthAPI } from "../../../lib/axios-config.ts";
 
 export default function useAuth() {
   const validateToken = async (): Promise<boolean> => {
+    console.log("VALIDATING TOKEN...");
     try {
       const res = await axiosAPI.get("/heartbeat");
+      console.log(!!res.data.access);
       return !!res.data.access;
     } catch {
       return false;
