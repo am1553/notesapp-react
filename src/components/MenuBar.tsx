@@ -4,12 +4,15 @@ import { Link } from "react-router-dom";
 export default function MenuBar({ className }: { className?: string }) {
   const activeNav = "home";
   return (
-    <nav className={"bg-white flex-center justify-around px-4 " + className}>
+    <nav
+      className={
+        "bg-white flex-center justify-around px-4 border-t " + className
+      }
+    >
       {ROUTES.map((route, i) => (
-        <div className={"h-fit w-full flex gap-4"}>
+        <div className={"h-fit w-full flex gap-4"} key={route.name}>
           <Link
             to={route.path}
-            key={route.name}
             className={`w-full h-fit flex-center rounded-md py-1 md:flex-col ${activeNav === route.name ? "bg-neutral-50" : "bg-transparent"}`}
           >
             <img

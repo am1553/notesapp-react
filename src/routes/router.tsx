@@ -1,42 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from "../App.tsx";
-import LoginRoute from "./login/LoginRoute.tsx";
-import SignUpRoute from "./signup/SingUpRoute.tsx";
-import DashboardRoute from "./dashboard/DashboardRoute.tsx";
-import ProtectedRoutes from "./protected/ProtectedRoutes.tsx";
-import NoteRoute from "./note/NoteRoute.tsx";
+import AuthRouter from "./auth";
+import DashboardRouter from "./dashboard";
+import ErrorRouter from "./error";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    Component: App,
-    children: [
-      {
-        path: "/",
-        Component: LoginRoute,
-      },
-      {
-        path: "/signup",
-        Component: SignUpRoute,
-      },
-    ],
-  },
-  {
-    path: "/app",
-    Component: ProtectedRoutes,
-    children: [
-      {
-        path: "",
-        Component: DashboardRoute,
-        children: [
-          {
-            path: "",
-            Component: NoteRoute,
-          },
-        ],
-      },
-    ],
-  },
-]);
+const router = createBrowserRouter([AuthRouter, DashboardRouter, ErrorRouter]);
 
 export default router;

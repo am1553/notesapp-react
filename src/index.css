@@ -3,6 +3,12 @@
 @tailwind components;
 @tailwind utilities;
 
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 /* For WebKit browsers like Chrome, Safari */
 ::-webkit-scrollbar {
     width: 4px; /* Adjust this value to set the scrollbar width */
@@ -39,6 +45,14 @@
 
     .font-inter {
         font-family: "Inter", serif;
+    }
+
+    .focus-shadow {
+        box-shadow:  0 0 0 3px #fff, 0 0 0 6px #99A0AE30;
+    }
+
+    .focus {
+        @apply focus:outline-none focus:focus-shadow;
     }
 
     .active-icon {

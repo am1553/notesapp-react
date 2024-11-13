@@ -1,4 +1,5 @@
 import { Header, MenuBar, Sidebar } from "../components";
+import React from "react";
 
 export default function DashboardLayout({
   children,
@@ -15,7 +16,7 @@ export default function DashboardLayout({
       <Header className={"xl:col-start-2 xl:row-start-1"} />
       <section
         className={
-          "xl:col-start-2 row-start-2 h-full bg-white max-xl:shadow-[0px_0px_10px_2px_#00000010] max-xl:rounded-t-xl xl:border-t"
+          "xl:col-start-2 row-start-2 h-full bg-white max-xl:shadow-[0px_0px_10px_2px_#00000010] max-xl:rounded-t-xl xl:border-t overflow-hidden"
         }
       >
         {children}
