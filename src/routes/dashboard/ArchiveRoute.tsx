@@ -12,7 +12,7 @@ export default function ArchiveRoute() {
 
   return (
     <div className="px-4 py-5 md:px-8 md:py-6 xl:p-0 flex flex-col gap-3 h-full">
-      <ContentHeader />
+      <ContentHeader rootPath={"app/archives"} />
       <hr className={"xl:hidden"} />
       <NoteOverview note={note} />
     </div>

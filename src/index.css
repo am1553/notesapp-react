@@ -51,6 +51,10 @@
         @apply focus-visible:outline-neutral-950 focus-visible:outline;
     }
 
+    .content-sidebar {
+        @apply py-4 overflow-hidden flex flex-col gap-4 border-r
+    }
+
     .active-icon {
         @apply filter;
         filter: brightness(0) saturate(100%) invert(24%) sepia(69%) saturate(3794%)

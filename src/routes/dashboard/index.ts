@@ -7,11 +7,11 @@ import ArchiveRoute from "./ArchiveRoute.tsx";
 
 const NotesRouter = [
   {
-    path: "notes",
+    path: "home",
     Component: NotesRoute,
   },
   {
-    path: "notes/:noteID",
+    path: "home/:noteID",
     Component: NoteRoute,
   },
 ];

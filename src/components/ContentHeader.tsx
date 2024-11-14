@@ -3,12 +3,12 @@ import LeftArrowIcon from "../assets/icon-arrow-left.svg";
 import BinIcon from "../assets/icon-delete.svg";
 import ArchiveIcon from "../assets/icon-archive.svg";
 
-export default function ContentHeader() {
+export default function ContentHeader({ rootPath }: { rootPath: string }) {
   return (
     <div
       className={"flex justify-between items-center text-neutral-600 xl:hidden"}
     >
-      <Link to={`/app/notes`} className={"flex items-center gap-2"}>
+      <Link to={`/${rootPath}`} className={"flex items-center gap-2"}>
         <img src={LeftArrowIcon} height={18} width={18} alt="left arrow" />
         <span>Go Back</span>
       </Link>

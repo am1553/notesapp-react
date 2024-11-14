@@ -5,7 +5,7 @@ import TagIcon from "../assets/icon-tag.svg";
 import SettingsIcon from "../assets/icon-settings.svg";
 export const ROUTES = [
   {
-    path: "/app/notes",
+    path: "/app/home",
     name: "home",
     label: "Home",
     icon: HomeIcon,
