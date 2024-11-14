@@ -9,7 +9,7 @@ export default function useNotes(filters?: Record<string, any>) {
     const params = new URLSearchParams(filters).toString();
     try {
       const response = await axiosAPI.get(`/notes?${params}`);
-      return await response.data;
+      return (await response.data) as Note[];
     } catch (error) {
       console.error(error);
     }

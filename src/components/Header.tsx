@@ -3,8 +3,30 @@ import { Input } from "./ui/input.tsx";
 import SearchIcon from "../assets/icon-search.svg";
 import SettingsIcon from "../assets/icon-settings.svg";
 import { Button } from "./ui/button.tsx";
+import { useLocation, useParams } from "react-router-dom";
 
 export default function Header({ className }: { className?: string }) {
+  const location = useLocation();
+  const pathname = location.pathname;
+  const currentRoute = pathname.split("/")[2];
+  const { tagName } = useParams();
+  console.log(currentRoute);
+
+  const title =
+    currentRoute === "home" ? (
+      "All Notes"
+    ) : currentRoute === "archives" ? (
+      "Archived Notes"
+    ) : currentRoute === "tags" ? (
+      <span>
+        <span className={"text-neutral-600"}>Notes Tagged: </span>
+        {tagName}
+      </span>
+    ) : currentRoute === "search" ? (
+      "Showing results for: Dev"
+    ) : (
+      "Settings"
+    );
   return (
     <header
       className={
@@ -12,7 +34,9 @@ export default function Header({ className }: { className?: string }) {
       }
     >
       <Logo className={"xl:hidden"} />
-      <h1 className={"text-preset-1 font-bold max-xl:hidden"}>All Notes</h1>
+      <h1 className={"text-preset-1 font-bold max-xl:hidden capitalize"}>
+        {title}
+      </h1>
 
       <div className={"flex gap-2 max-xl:hidden"}>
         <div className={"relative"}>

@@ -1,4 +1,4 @@
-import ArchivesList from "../../features/notes/components/ArchivesList.tsx";
+import ArchivesList from "../../../features/notes/components/ArchivesList.tsx";
 
 export default function ArchivesRoute() {
   return (

@@ -1,8 +1,8 @@
-import { ContentHeader } from "../../components";
-import NoteOverview from "../../components/NoteOverview.tsx";
-import { useNotes } from "../../features/notes";
+import { useNotes } from "../../../features/notes";
+import { ContentHeader } from "../../../components";
+import NoteOverview from "../../../components/NoteOverview.tsx";
 
-export default function ArchiveRoute() {
+export default function NoteRoute() {
   const { noteQuery } = useNotes();
 
   if (noteQuery.isLoading) return <div>Loading...</div>;
@@ -12,7 +12,12 @@ export default function ArchiveRoute() {
 
   return (
     <div className="px-4 py-5 md:px-8 md:py-6 xl:p-0 flex flex-col gap-3 h-full">
-      <ContentHeader rootPath={"app/archives"} />
+      <ContentHeader
+        showArchive={true}
+        showCancel={true}
+        showDelete={true}
+        showSave={true}
+      />
       <hr className={"xl:hidden"} />
       <NoteOverview note={note} />
     </div>

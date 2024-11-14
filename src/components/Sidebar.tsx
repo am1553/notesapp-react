@@ -2,6 +2,8 @@ import Logo from "./Logo.tsx";
 import { Link, useLocation } from "react-router-dom";
 import { ROUTES } from "../constants/routes.ts";
 import RightArrowIcon from "../assets/icon-chevron-right.svg";
+import SidebarTagsNav from "./SidebarTagsNav.tsx";
+
 export default function Sidebar({ className }: { className?: string }) {
   const location = useLocation();
   const pathname = location.pathname;
@@ -49,7 +51,7 @@ export default function Sidebar({ className }: { className?: string }) {
         ))}
       </nav>
       <hr className={"my-2"} />
-      <ul></ul>
+      <SidebarTagsNav />
     </aside>
   );
 }

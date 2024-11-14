@@ -2,6 +2,7 @@ import { useLocation } from "react-router-dom";
 import HomeSidebar from "./HomeSidebar.tsx";
 import ArchivesSidebar from "./ArchivesSidebar.tsx";
 import CreateNewNoteBtn from "../features/notes/components/CreateNewNoteBtn.tsx";
+import TagsSidebar from "./TagsSidebar.tsx";
 
 function DefaultSidebar() {
   return (
@@ -25,6 +26,8 @@ export default function ContentSidebar() {
     <HomeSidebar />
   ) : pathname === "archives" ? (
     <ArchivesSidebar />
+  ) : pathname === "tags" ? (
+    <TagsSidebar />
   ) : (
     <DefaultSidebar />
   );

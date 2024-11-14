@@ -1,9 +1,12 @@
 import ProtectedRoutes from "../protected/ProtectedRoutes.tsx";
-import DashboardRoute from "./DashboardRoute.tsx";
-import NotesRoute from "./NotesRoute.tsx";
-import NoteRoute from "./NoteRoute.tsx";
-import ArchivesRoute from "./ArchivesRoute.tsx";
-import ArchiveRoute from "./ArchiveRoute.tsx";
+import DashboardRoute from "./routes/DashboardRoute.tsx";
+import NotesRoute from "./routes/NotesRoute.tsx";
+import NoteRoute from "./routes/NoteRoute.tsx";
+import ArchivesRoute from "./routes/ArchivesRoute.tsx";
+import ArchiveRoute from "./routes/ArchiveRoute.tsx";
+import TagRoute from "./routes/TagRoute.tsx";
+import TagsRoute from "./routes/TagsRoute.tsx";
+import TagWithNoteRoute from "./routes/TagWithNoteRoute.tsx";
 
 const NotesRouter = [
   {
@@ -16,7 +19,7 @@ const NotesRouter = [
   },
 ];
 
-const ArchivedRouter = [
+const ArchivesRouter = [
   {
     path: "archives",
     Component: ArchivesRoute,
@@ -27,6 +30,18 @@ const ArchivedRouter = [
   },
 ];
 
+const TagRouter = [
+  {
+    path: "tags",
+    Component: TagsRoute,
+  },
+  {
+    path: "tags/:tagName",
+    Component: TagRoute,
+  },
+  { path: "tags/:tagName/:noteID", Component: TagWithNoteRoute },
+];
+
 const DashboardRouter = {
   path: "/app",
   Component: ProtectedRoutes,
@@ -34,7 +49,7 @@ const DashboardRouter = {
     {
       path: "",
       Component: DashboardRoute,
-      children: [...NotesRouter, ...ArchivedRouter],
+      children: [...NotesRouter, ...ArchivesRouter, ...TagRouter],
     },
   ],
 };

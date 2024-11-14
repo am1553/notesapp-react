@@ -1,4 +1,4 @@
-import { NotesList, useNotes } from "../../features/notes";
+import { NotesList, useNotes } from "../../../features/notes";
 
 export default function NotesRoute() {
   const { notesQuery } = useNotes();
@@ -9,7 +9,7 @@ export default function NotesRoute() {
       }
     >
       <h1 className={"text-preset-1 font-bold"}>All Notes</h1>
-      <NotesList notesQuery={notesQuery} rootPath={"app/notes"} />
+      <NotesList notesQuery={notesQuery} rootPath={"app/home"} />
     </div>
   );
 }

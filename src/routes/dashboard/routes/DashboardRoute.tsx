@@ -1,6 +1,6 @@
-import { DashboardLayout, MobileLayout, ContentLayout } from "../../layout";
+import { DashboardLayout, MobileLayout, ContentLayout } from "../../../layout";
 import { Outlet } from "react-router-dom";
-import { ActionBar, ContentSidebar } from "../../components";
+import { ActionBar, ContentSidebar } from "../../../components";
 
 export default function DashboardRoute() {
   return (
