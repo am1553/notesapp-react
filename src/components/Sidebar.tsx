@@ -6,7 +6,7 @@ export default function Sidebar({ className }: { className?: string }) {
   const location = useLocation();
   const pathname = location.pathname;
   const navRoutes = ROUTES.filter((route) => {
-    const allowed = ["home", "archived"];
+    const allowed = ["home", "archives"];
     if (allowed.includes(route.name)) {
       return route;
     }

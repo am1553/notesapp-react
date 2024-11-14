@@ -1,8 +1,8 @@
-import { useNotes } from "../../features/notes";
 import { ContentHeader } from "../../components";
 import NoteOverview from "../../components/NoteOverview.tsx";
+import { useNotes } from "../../features/notes";
 
-export default function NoteRoute() {
+export default function ArchiveRoute() {
   const { noteQuery } = useNotes();
 
   if (noteQuery.isLoading) return <div>Loading...</div>;

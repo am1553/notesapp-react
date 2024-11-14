@@ -2,7 +2,8 @@ import ProtectedRoutes from "../protected/ProtectedRoutes.tsx";
 import DashboardRoute from "./DashboardRoute.tsx";
 import NotesRoute from "./NotesRoute.tsx";
 import NoteRoute from "./NoteRoute.tsx";
-import ArchivedRoute from "./ArchivedRoute.tsx";
+import ArchivesRoute from "./ArchivesRoute.tsx";
+import ArchiveRoute from "./ArchiveRoute.tsx";
 
 const NotesRouter = [
   {
@@ -17,8 +18,12 @@ const NotesRouter = [
 
 const ArchivedRouter = [
   {
-    path: "archived",
-    Component: ArchivedRoute,
+    path: "archives",
+    Component: ArchivesRoute,
+  },
+  {
+    path: "archives/:noteID",
+    Component: ArchiveRoute,
   },
 ];
 

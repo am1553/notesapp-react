@@ -17,8 +17,8 @@ export const ROUTES = [
     icon: SearchIcon,
   },
   {
-    path: "/app/archived",
-    name: "archived",
+    path: "/app/archives",
+    name: "archives",
     label: "Archived",
     icon: ArchiveIcon,
   },

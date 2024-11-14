@@ -29,7 +29,7 @@ export default function Header({ className }: { className?: string }) {
           />
         </div>
         <Button variant={"ghost"} className={""}>
-          <img src={SettingsIcon} height={20} width={20} alt="settings" />
+          <img src={SettingsIcon} height={24} width={24} alt="settings" />
         </Button>
       </div>
     </header>

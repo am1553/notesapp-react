@@ -1,15 +1,21 @@
 import moment from "moment";
 import { Link, useParams } from "react-router-dom";
 
-export default function NoteSummary({ note }: { note: Note }) {
+export default function NoteSummary({
+  note,
+  rootPath,
+}: {
+  note: Note;
+  rootPath: string;
+}) {
   const { noteID } = useParams();
   const date = moment().format("D MMM YYYY");
   const isActive = noteID === note.id;
 
   return (
     <Link
-      to={`/app/notes/${note.id}`}
-      className={`w-full text-left flex flex-col gap-3 p-2 rounded-md xl:hover:bg-neutral-50 xl:focus xl:focus:bg-neutral-50 transition-all ${isActive && "bg-neutral-100 xl:scale-105"}`}
+      to={`/${rootPath}/${note.id}`}
+      className={`w-full text-left flex flex-col gap-3 p-2 rounded-md xl:hover:scale-110 hover:bg-neutral-50 xl:focus xl:focus:bg-neutral-50 transition-all ${isActive && "bg-neutral-100 xl:scale-105"}`}
     >
       <h1 className={"text-preset-3 font-semibold capitalize"}>{note.title}</h1>
       <div className="flex gap-1">

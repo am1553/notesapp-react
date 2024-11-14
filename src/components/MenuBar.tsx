@@ -1,8 +1,10 @@
 import { ROUTES } from "../constants/routes.ts";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function MenuBar({ className }: { className?: string }) {
-  const activeNav = "home";
+  const location = useLocation();
+  const pathname = location.pathname.split("/")[2];
+  const activeNav = pathname === "notes" ? "home" : pathname;
   return (
     <nav
       className={
