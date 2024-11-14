@@ -28,8 +28,8 @@ const formSchema = z.object({
 
 export default function LoginForm() {
   const { signInMutation } = useAuth();
+  const { isPending, isError } = signInMutation;
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isError, setIsError] = useState<boolean>(false);
   const passwordInputRef = useRef<HTMLInputElement>(null);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -51,13 +51,14 @@ export default function LoginForm() {
       .catch((err) => {
         console.error(err);
         setIsLoading(false);
-        setIsError(true);
+        if (err.status === 401) {
+          throw new Error("Invalid credentials");
+        }
+        throw new Error(err);
       });
-
-    console.log(isError);
   };
 
-  return isLoading ? (
+  return isPending ? (
     <ClipLoader
       color={"#000"}
       loading={isLoading}
@@ -118,6 +119,12 @@ export default function LoginForm() {
           Sign Up
         </Link>
       </div>
+      {isError && (
+        <span className={"text-red-500"}>
+          {isError &&
+            "Login failed. Please check your credentials and try again."}
+        </span>
+      )}
     </Form>
   );
 }

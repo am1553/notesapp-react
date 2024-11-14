@@ -10,13 +10,12 @@ export default function HomeSidebar() {
   const navigate = useNavigate();
 
   const { ref, inView } = useInView({
-    triggerOnce: true,
+    triggerOnce: false,
     threshold: 0.1,
   });
 
   useEffect(() => {
     if (inView && data) {
-      console.log(data);
       navigate(`/app/home/${data[0].id}`);
     }
   }, [data, inView, navigate]);

@@ -4,6 +4,7 @@ import ArchivesSidebar from "./ArchivesSidebar.tsx";
 import CreateNewNoteBtn from "../features/notes/components/CreateNewNoteBtn.tsx";
 import TagsSidebar from "./TagsSidebar.tsx";
 import SearchSidebar from "./SearchSidebar.tsx";
+import SettingsSidebar from "./SettingsSidebar.tsx";
 
 function DefaultSidebar() {
   return (
@@ -22,7 +23,6 @@ function DefaultSidebar() {
 export default function ContentSidebar() {
   const location = useLocation();
   const pathname = location.pathname.split("/")[2];
-  console.log(pathname);
   return pathname === "home" ? (
     <HomeSidebar />
   ) : pathname === "archives" ? (
@@ -31,6 +31,8 @@ export default function ContentSidebar() {
     <TagsSidebar />
   ) : pathname === "search" ? (
     <SearchSidebar />
+  ) : pathname === "settings" ? (
+    <SettingsSidebar />
   ) : (
     <DefaultSidebar />
   );

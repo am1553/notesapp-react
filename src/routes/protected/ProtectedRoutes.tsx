@@ -1,18 +1,26 @@
-import { useAuth } from "../../features/auth";
 import { Outlet, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { axiosAPI } from "../../lib/axios-config.ts";
+import { useQuery } from "@tanstack/react-query";
 
 export default function ProtectedRoutes() {
-  const { checkTokenQuery } = useAuth();
-  const data = checkTokenQuery;
-
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!data.data && !data.isLoading) {
+  const validateToken = async (): Promise<boolean> => {
+    console.log("VALIDATING TOKEN...", new Date());
+    try {
+      const res = await axiosAPI.get("/heartbeat");
+      console.log(!!res.data.access);
+      return !!res.data.access;
+    } catch {
       navigate("/");
+      return false;
     }
-  }, [data]);
+  };
+
+  useQuery<boolean>({
+    queryKey: ["heartbeat"],
+    queryFn: validateToken,
+    refetchInterval: 60 * 1000,
+  });
 
   return (
     <div>

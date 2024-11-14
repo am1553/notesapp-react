@@ -1,32 +1,28 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import Cookies from "js-cookie";
-import { axiosAPI, axiosAuthAPI } from "../../../lib/axios-config.ts";
+import { axiosAuthAPI } from "../../../lib/axios-config.ts";
 import { useNavigate } from "react-router-dom";
 
 export default function useAuth() {
   const navigate = useNavigate();
-  const validateToken = async (): Promise<boolean> => {
-    console.log("VALIDATING TOKEN...");
-    try {
-      const res = await axiosAPI.get("/heartbeat");
-      console.log(!!res.data.access);
-      return !!res.data.access;
-    } catch {
-      return false;
-    }
-  };
 
   const signIn = async (formData: { email: string; password: string }) => {
     try {
       const res = await axiosAuthAPI.post(`/sign-in`, formData);
       const data: SignIn = res.data;
-      const { token, user } = data;
+      const { token, user, noteID } = data;
       Cookies.set("accessToken", token.access);
       Cookies.set("refreshToken", token.refresh);
       localStorage.setItem("user", JSON.stringify(user));
+      if (!data.noteID || window.innerWidth < 1280) {
+        navigate("/app/home");
+      } else {
+        navigate(`/app/home/${noteID}`);
+      }
       return data;
     } catch (err) {
       console.log(err);
+      throw err;
     }
   };
 
@@ -49,23 +45,9 @@ export default function useAuth() {
   //   }
   // };
 
-  const checkTokenQuery = useQuery<boolean>({
-    queryKey: ["heartbeat"],
-    queryFn: validateToken,
-  });
-
   const signInMutation = useMutation({
     mutationFn: (data: { email: string; password: string }) => signIn(data),
-    onSuccess: (data) => {
-      const windowWidth = window.innerWidth;
-
-      if (!data) return navigate("/");
-      if (!data.noteID || windowWidth < 1280) {
-        return navigate("/app/home");
-      }
-      return navigate(`/app/home/${data?.noteID}`);
-    },
   });
 
-  return { signInMutation, checkTokenQuery };
+  return { signInMutation };
 }

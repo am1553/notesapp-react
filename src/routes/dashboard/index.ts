@@ -8,6 +8,10 @@ import TagRoute from "./routes/TagRoute.tsx";
 import TagsRoute from "./routes/TagsRoute.tsx";
 import TagWithNoteRoute from "./routes/TagWithNoteRoute.tsx";
 import SearchRoute from "./routes/SearchRoute.tsx";
+import SettingsRoute from "./routes/SettingsRoute.tsx";
+import ThemeRoute from "./routes/ThemeRoute.tsx";
+import FontThemeRoute from "./routes/FontThemeRoute.tsx";
+import ChangePasswordRoute from "./routes/ChangePasswordRoute.tsx";
 
 const NotesRouter = [
   {
@@ -54,6 +58,25 @@ const SearchRouter = [
   },
 ];
 
+const SettingsRouter = [
+  {
+    path: "settings",
+    Component: SettingsRoute,
+  },
+  {
+    path: "settings/theme",
+    Component: ThemeRoute,
+  },
+  {
+    path: "settings/font",
+    Component: FontThemeRoute,
+  },
+  {
+    path: "settings/change-password",
+    Component: ChangePasswordRoute,
+  },
+];
+
 const DashboardRouter = {
   path: "/app",
   Component: ProtectedRoutes,
@@ -66,6 +89,7 @@ const DashboardRouter = {
         ...ArchivesRouter,
         ...TagRouter,
         ...SearchRouter,
+        ...SettingsRouter,
       ],
     },
   ],

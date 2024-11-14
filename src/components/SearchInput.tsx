@@ -1,20 +1,33 @@
 import SearchIcon from "../assets/icon-search.svg";
 import { Input } from "./ui/input.tsx";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 export default function SearchInput({ className }: { className?: string }) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleClick = () => {
+  const handleNav = () => {
     if (window.innerWidth >= 1280) {
+      if (location.pathname.split("/").includes("search")) return;
       navigate("/app/search");
     }
   };
 
+  const onBlur = () => {
+    if (window.innerWidth >= 1280) {
+      if (
+        !searchParams.get("search") ||
+        searchParams.get("search")!.trim() === ""
+      ) {
+        navigate(-1);
+      }
+    }
+  };
+
   return (
-    <div className={"relative"} onClick={handleClick}>
+    <div className={"relative"}>
       <img
         src={SearchIcon}
         height={20}
@@ -26,6 +39,9 @@ export default function SearchInput({ className }: { className?: string }) {
         className={"rounded-md pl-12 w-full " + className}
         placeholder={"Search by title, content, or tags…"}
         onChange={(e) => setSearchParams({ search: e.target.value })}
+        onFocus={handleNav}
+        onClick={handleNav}
+        onBlur={onBlur}
       />
     </div>
   );

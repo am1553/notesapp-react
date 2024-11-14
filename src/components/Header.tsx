@@ -1,8 +1,12 @@
 import Logo from "./Logo.tsx";
-
 import SettingsIcon from "../assets/icon-settings.svg";
-import { Button } from "./ui/button.tsx";
-import { useLocation, useParams, useSearchParams } from "react-router-dom";
+
+import {
+  Link,
+  useLocation,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import SearchInput from "./SearchInput.tsx";
 
 export default function Header({ className }: { className?: string }) {
@@ -38,11 +42,11 @@ export default function Header({ className }: { className?: string }) {
         {title}
       </h1>
 
-      <div className={"flex gap-2 max-xl:hidden"}>
+      <div className={"flex h-fit gap-4 max-xl:hidden"}>
         <SearchInput className={"w-80"} />
-        <Button variant={"ghost"} className={""}>
+        <Link to={"/app/settings"} className={"flex items-center px-4 py-2"}>
           <img src={SettingsIcon} height={24} width={24} alt="settings" />
-        </Button>
+        </Link>
       </div>
     </header>
   );
