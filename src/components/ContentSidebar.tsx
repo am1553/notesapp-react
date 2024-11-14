@@ -3,6 +3,7 @@ import HomeSidebar from "./HomeSidebar.tsx";
 import ArchivesSidebar from "./ArchivesSidebar.tsx";
 import CreateNewNoteBtn from "../features/notes/components/CreateNewNoteBtn.tsx";
 import TagsSidebar from "./TagsSidebar.tsx";
+import SearchSidebar from "./SearchSidebar.tsx";
 
 function DefaultSidebar() {
   return (
@@ -28,6 +29,8 @@ export default function ContentSidebar() {
     <ArchivesSidebar />
   ) : pathname === "tags" ? (
     <TagsSidebar />
+  ) : pathname === "search" ? (
+    <SearchSidebar />
   ) : (
     <DefaultSidebar />
   );

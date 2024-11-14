@@ -7,6 +7,7 @@ import ArchiveRoute from "./routes/ArchiveRoute.tsx";
 import TagRoute from "./routes/TagRoute.tsx";
 import TagsRoute from "./routes/TagsRoute.tsx";
 import TagWithNoteRoute from "./routes/TagWithNoteRoute.tsx";
+import SearchRoute from "./routes/SearchRoute.tsx";
 
 const NotesRouter = [
   {
@@ -42,6 +43,17 @@ const TagRouter = [
   { path: "tags/:tagName/:noteID", Component: TagWithNoteRoute },
 ];
 
+const SearchRouter = [
+  {
+    path: "search",
+    Component: SearchRoute,
+  },
+  {
+    path: "search/:noteID",
+    Component: NoteRoute,
+  },
+];
+
 const DashboardRouter = {
   path: "/app",
   Component: ProtectedRoutes,
@@ -49,7 +61,12 @@ const DashboardRouter = {
     {
       path: "",
       Component: DashboardRoute,
-      children: [...NotesRouter, ...ArchivesRouter, ...TagRouter],
+      children: [
+        ...NotesRouter,
+        ...ArchivesRouter,
+        ...TagRouter,
+        ...SearchRouter,
+      ],
     },
   ],
 };

@@ -1,16 +1,16 @@
 import Logo from "./Logo.tsx";
-import { Input } from "./ui/input.tsx";
-import SearchIcon from "../assets/icon-search.svg";
+
 import SettingsIcon from "../assets/icon-settings.svg";
 import { Button } from "./ui/button.tsx";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, useSearchParams } from "react-router-dom";
+import SearchInput from "./SearchInput.tsx";
 
 export default function Header({ className }: { className?: string }) {
   const location = useLocation();
   const pathname = location.pathname;
   const currentRoute = pathname.split("/")[2];
   const { tagName } = useParams();
-  console.log(currentRoute);
+  const [searchParams] = useSearchParams();
 
   const title =
     currentRoute === "home" ? (
@@ -23,7 +23,7 @@ export default function Header({ className }: { className?: string }) {
         {tagName}
       </span>
     ) : currentRoute === "search" ? (
-      "Showing results for: Dev"
+      `Showing results for: ${!searchParams.get("search") ? "" : searchParams.get("search")}`
     ) : (
       "Settings"
     );
@@ -39,19 +39,7 @@ export default function Header({ className }: { className?: string }) {
       </h1>
 
       <div className={"flex gap-2 max-xl:hidden"}>
-        <div className={"relative"}>
-          <img
-            src={SearchIcon}
-            height={20}
-            width={20}
-            alt="search"
-            className={"absolute top-2/4 -translate-y-2/4 left-4"}
-          />
-          <Input
-            className={"rounded-md pl-12 w-80"}
-            placeholder={"Search by title, content, or tags…"}
-          />
-        </div>
+        <SearchInput className={"w-80"} />
         <Button variant={"ghost"} className={""}>
           <img src={SettingsIcon} height={24} width={24} alt="settings" />
         </Button>
