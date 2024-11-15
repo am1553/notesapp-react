@@ -1,6 +1,6 @@
-import { ContentHeader } from "../../../components";
 import { NotesList, useNotes } from "../../../features/notes";
 import { useParams } from "react-router-dom";
+import ContentHeader from "../../../components/ContentHeader.tsx";
 
 export default function TagRoute() {
   const { tagName } = useParams();

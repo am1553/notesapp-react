@@ -12,12 +12,12 @@ import {
 import { Input } from "../../../components/ui/input.tsx";
 import ShowPasswordIcon from "../../../assets/icon-show-password.svg";
 import HidePasswordIcon from "../../../assets/icon-hide-password.svg";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { Button } from "../../../components/ui/button.tsx";
 import { Link } from "react-router-dom";
 import { useTogglePasswordVisibility } from "../../../hooks";
-import useAuth from "../services/useAuth.ts";
 import { ClipLoader } from "react-spinners";
+import { useAuth } from "../context/auth.tsx";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Email address is required" }),
@@ -27,9 +27,7 @@ const formSchema = z.object({
 });
 
 export default function LoginForm() {
-  const { signInMutation } = useAuth();
-  const { isPending, isError } = signInMutation;
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [authenticate, isAuthenticating] = useAuth();
   const passwordInputRef = useRef<HTMLInputElement>(null);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -42,26 +40,19 @@ export default function LoginForm() {
   const [handlePasswordVis, showPassword] =
     useTogglePasswordVisibility(passwordInputRef);
   const handleSubmit = async (data: z.infer<typeof formSchema>) => {
-    setIsLoading(true);
-    signInMutation
-      .mutateAsync(data)
-      .then(() => {
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setIsLoading(false);
-        if (err.status === 401) {
-          throw new Error("Invalid credentials");
-        }
-        throw new Error(err);
-      });
+    try {
+      const res = await authenticate.mutateAsync(data);
+      console.log("Sign in successful: ", res);
+    } catch (error) {
+      console.log("Sign in failed: ", error);
+    }
+    console.log(authenticate);
   };
 
-  return isPending ? (
+  return isAuthenticating ? (
     <ClipLoader
       color={"#000"}
-      loading={isLoading}
+      loading={isAuthenticating}
       size={50}
       aria-label="Loading Spinner"
       data-testid="loader"
@@ -119,9 +110,9 @@ export default function LoginForm() {
           Sign Up
         </Link>
       </div>
-      {isError && (
+      {authenticate.isError && (
         <span className={"text-red-500"}>
-          {isError &&
+          {authenticate.isError &&
             "Login failed. Please check your credentials and try again."}
         </span>
       )}

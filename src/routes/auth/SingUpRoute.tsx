@@ -1,5 +1,5 @@
 import { AuthForm, SignUpForm } from "../../features/auth";
-import { AuthLayout } from "../../layout";
+import AuthLayout from "../../layout/AuthLayout.tsx";
 
 export default function SignUpRoute() {
   return (

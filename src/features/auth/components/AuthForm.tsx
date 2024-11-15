@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Logo } from "../../../components";
+import Logo from "../../../components/Logo.tsx";
 
 export default function AuthForm({
   title,

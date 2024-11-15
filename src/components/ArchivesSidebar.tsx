@@ -1,8 +1,8 @@
 import { NotesList, useNotes } from "../features/notes";
 import CreateNewNoteBtn from "../features/notes/components/CreateNewNoteBtn.tsx";
-import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { useNavigate } from "react-router-dom";
+import React from "react";
 
 export default function ArchivesSidebar() {
   const { notesQuery } = useNotes({ isArchived: true });
@@ -12,7 +12,7 @@ export default function ArchivesSidebar() {
     threshold: 0.1,
   });
   const navigate = useNavigate();
-  useEffect(() => {
+  React.useEffect(() => {
     if (inView && data) {
       navigate(`/app/archives/${data[0].id}`);
     }

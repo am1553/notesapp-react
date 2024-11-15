@@ -1,5 +1,7 @@
-import { Header, MenuBar, Sidebar } from "../components";
 import React from "react";
+import Sidebar from "../components/Sidebar.tsx";
+import Header from "../components/Header.tsx";
+import MenuBar from "../components/MenuBar.tsx";
 
 export default function DashboardLayout({
   children,

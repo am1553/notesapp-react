@@ -12,6 +12,10 @@ import {
 } from "../../../components/ui/form.tsx";
 import { Input } from "../../../components/ui/input.tsx";
 import { Button } from "../../../components/ui/button.tsx";
+import ShowPasswordIcon from "../../../assets/icon-show-password.svg";
+import HidePasswordIcon from "../../../assets/icon-hide-password.svg";
+import { useRef } from "react";
+import { useTogglePasswordVisibility } from "../../../hooks";
 
 const formSchema = z.object({
   currentPassword: z
@@ -26,6 +30,17 @@ const formSchema = z.object({
 });
 
 export default function ChangePasswordRoute() {
+  const currentPasswordRef = useRef<HTMLInputElement>(null);
+  const newPasswordRef = useRef<HTMLInputElement>(null);
+  const confirmPasswordRef = useRef<HTMLInputElement>(null);
+
+  const [handleCurrentPasswordVis, showCurrentPassword] =
+    useTogglePasswordVisibility(currentPasswordRef);
+  const [handleNewPasswordVis, showNewPassword] =
+    useTogglePasswordVisibility(newPasswordRef);
+  const [handleConfirmPasswordVis, showConfirmPassword] =
+    useTogglePasswordVisibility(confirmPasswordRef);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -51,10 +66,34 @@ export default function ChangePasswordRoute() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Current Password</FormLabel>
-                <FormControl>
-                  <Input type={"password"} {...field} />
-                </FormControl>
-                <FormMessage />
+                <div className={"relative"}>
+                  <button
+                    className={"absolute top-2/4 -translate-y-2/4 right-4"}
+                    type={"button"}
+                    onClick={handleCurrentPasswordVis}
+                  >
+                    <img
+                      src={
+                        showCurrentPassword
+                          ? ShowPasswordIcon
+                          : HidePasswordIcon
+                      }
+                      alt={
+                        showCurrentPassword ? "show password" : "hide password"
+                      }
+                      height={20}
+                      width={20}
+                    />
+                  </button>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      ref={currentPasswordRef}
+                      className={"pr-8"}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </div>
               </FormItem>
             )}
           />
@@ -63,10 +102,28 @@ export default function ChangePasswordRoute() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>New Password</FormLabel>
-                <FormControl>
-                  <Input type={"password"} {...field} />
-                </FormControl>
-                <FormMessage />
+                <div className={"relative"}>
+                  <button
+                    className={"absolute top-2/4 -translate-y-2/4 right-4"}
+                    type={"button"}
+                    onClick={handleNewPasswordVis}
+                  >
+                    <img
+                      src={
+                        showCurrentPassword
+                          ? ShowPasswordIcon
+                          : HidePasswordIcon
+                      }
+                      alt={showNewPassword ? "show password" : "hide password"}
+                      height={20}
+                      width={20}
+                    />
+                  </button>
+                  <FormControl>
+                    <Input {...field} ref={newPasswordRef} className={"pr-8"} />
+                  </FormControl>
+                  <FormMessage />
+                </div>
               </FormItem>
             )}
           />
@@ -75,13 +132,38 @@ export default function ChangePasswordRoute() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Confirm Password</FormLabel>
-                <FormControl>
-                  <Input type={"password"} {...field} />
-                </FormControl>
-                <FormMessage />
+                <div className={"relative"}>
+                  <button
+                    className={"absolute top-2/4 -translate-y-2/4 right-4"}
+                    type={"button"}
+                    onClick={handleConfirmPasswordVis}
+                  >
+                    <img
+                      src={
+                        showCurrentPassword
+                          ? ShowPasswordIcon
+                          : HidePasswordIcon
+                      }
+                      alt={
+                        showConfirmPassword ? "show password" : "hide password"
+                      }
+                      height={20}
+                      width={20}
+                    />
+                  </button>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      ref={confirmPasswordRef}
+                      className={"pr-8"}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </div>
               </FormItem>
             )}
           />
+
           <div className={"flex justify-end gap-2 mt-1"}>
             <Button type={"submit"} className={"w-fit"}>
               Save Password

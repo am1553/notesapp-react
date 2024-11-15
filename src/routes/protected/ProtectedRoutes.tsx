@@ -1,30 +1,23 @@
-import { Outlet, useNavigate } from "react-router-dom";
-import { axiosAPI } from "../../lib/axios-config.ts";
-import { useQuery } from "@tanstack/react-query";
+import { Navigate, Outlet } from "react-router-dom";
+import { Suspense } from "react";
+import Loading from "../Loading.tsx";
+import { useAuth } from "../../features/auth/context/auth.tsx";
 
 export default function ProtectedRoutes() {
-  const navigate = useNavigate();
-  const validateToken = async (): Promise<boolean> => {
-    console.log("VALIDATING TOKEN...", new Date());
-    try {
-      const res = await axiosAPI.get("/heartbeat");
-      console.log(!!res.data.access);
-      return !!res.data.access;
-    } catch {
-      navigate("/");
-      return false;
-    }
-  };
-
-  useQuery<boolean>({
-    queryKey: ["heartbeat"],
-    queryFn: validateToken,
-    refetchInterval: 60 * 1000,
-  });
-
+  const [authenticate, isAuthenticating, isAuthenticated] = useAuth();
+  console.log(
+    "isAuthenticated: ",
+    isAuthenticated,
+    "isAuthenticating: ",
+    isAuthenticated,
+  );
+  if (isAuthenticating) return <Loading />;
+  if (!isAuthenticated) return <Navigate to="/" replace={true} />;
   return (
-    <div>
-      <Outlet />
-    </div>
+    <Suspense fallback={<Loading />}>
+      <div>
+        <Outlet />
+      </div>
+    </Suspense>
   );
 }

@@ -15,13 +15,15 @@ export default function SearchInput({ className }: { className?: string }) {
     }
   };
 
+  console.log(location);
+
   const onBlur = () => {
     if (window.innerWidth >= 1280) {
       if (
         !searchParams.get("search") ||
         searchParams.get("search")!.trim() === ""
       ) {
-        navigate(-1);
+        navigate(location.pathname);
       }
     }
   };

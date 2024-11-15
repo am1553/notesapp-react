@@ -1,6 +1,6 @@
 import NoteOverview from "../../../components/NoteOverview.tsx";
 import { useNotes } from "../../../features/notes";
-import { ContentHeader } from "../../../components";
+import ContentHeader from "../../../components/ContentHeader.tsx";
 
 export default function TagWithNoteRoute() {
   const { noteQuery } = useNotes();

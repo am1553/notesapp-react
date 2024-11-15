@@ -1,6 +1,6 @@
-import { ContentHeader } from "../../../components";
 import NoteOverview from "../../../components/NoteOverview.tsx";
 import { useNotes } from "../../../features/notes";
+import ContentHeader from "../../../components/ContentHeader.tsx";
 
 export default function ArchiveRoute() {
   const { noteQuery } = useNotes();
