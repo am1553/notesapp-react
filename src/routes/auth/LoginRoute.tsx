@@ -4,7 +4,7 @@ import { useAuth } from "../../features/auth/context/auth.tsx";
 import AuthLayout from "../../layout/AuthLayout.tsx";
 
 export default function LoginRoute() {
-  const [authenticate, isAuthenticating] = useAuth();
+  const [, isAuthenticating] = useAuth();
   return (
     <AuthLayout>
       <AuthForm

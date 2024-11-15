@@ -8,3 +8,21 @@ declare interface Note {
   updated_at: string;
   tags: Tag[];
 }
+
+declare interface TokenRes {
+  access: string;
+  refresh: string;
+}
+
+declare interface User {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+}
+
+declare interface UserResponse {
+  token: Token;
+  user: User;
+  noteID?: string;
+}

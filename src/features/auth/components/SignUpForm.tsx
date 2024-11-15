@@ -14,9 +14,11 @@ import { Input } from "../../../components/ui/input.tsx";
 import ShowPasswordIcon from "../../../assets/icon-show-password.svg";
 import HidePasswordIcon from "../../../assets/icon-hide-password.svg";
 import { Button } from "../../../components/ui/button.tsx";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useTogglePasswordVisibility } from "../../../hooks";
-
+import { useAuth } from "../context/auth.tsx";
+import { axiosAuthAPI } from "../../../lib/axios-config.ts";
+import Cookies from "js-cookie";
 const formSchema = z.object({
   firstName: z
     .string()
@@ -33,7 +35,9 @@ const formSchema = z.object({
 });
 
 export default function SignUpForm() {
+  const [, , , setIsAuthenticating, setIsAuthenticated] = useAuth();
   const passwordInputRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -46,8 +50,22 @@ export default function SignUpForm() {
 
   const [handlePasswordVis, showPassword] =
     useTogglePasswordVisibility(passwordInputRef);
-  const handleSubmit = (data: z.infer<typeof formSchema>) => {
-    console.log(data);
+  const handleSubmit = async (formData: z.infer<typeof formSchema>) => {
+    setIsAuthenticating(true);
+    try {
+      const res = await axiosAuthAPI.post("/users", formData);
+      const { token, user } = res.data;
+
+      Cookies.set("accessToken", token.access);
+      Cookies.set("refreshToken", token.refresh);
+
+      localStorage.setItem("user", JSON.stringify(user));
+      setIsAuthenticated(true);
+      navigate("/app/home");
+      console.log("Sign up successful: ", res);
+    } catch (error) {
+      console.log("Sign up failed: ", error);
+    }
   };
 
   return (

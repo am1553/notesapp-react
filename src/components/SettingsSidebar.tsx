@@ -10,9 +10,7 @@ import Cookies from "js-cookie";
 import { Button } from "./ui/button.tsx";
 import { useAuth } from "../features/auth/context/auth.tsx";
 export default function SettingsSidebar() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [authenticate, isAuthenticating, isAuthenticated, setIsAuthenticated] =
-    useAuth();
+  const [, , , , setIsAuthenticated] = useAuth();
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -72,7 +70,7 @@ export default function SettingsSidebar() {
       <Button
         variant={"ghost"}
         type={"button"}
-        className={`flex gap-2 py-2 rounded-lg focus px-2 w-full justify-start text-preset-3`}
+        className={`flex gap-2 py-2 rounded-lg focus px-2 w-full justify-start`}
         onClick={handleLogout}
       >
         <img src={LogoutIcon} height={20} width={20} alt="logout" />

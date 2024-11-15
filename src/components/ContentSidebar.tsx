@@ -5,8 +5,6 @@ import CreateNewNoteBtn from "../features/notes/components/CreateNewNoteBtn.tsx"
 import TagsSidebar from "./TagsSidebar.tsx";
 import SearchSidebar from "./SearchSidebar.tsx";
 import SettingsSidebar from "./SettingsSidebar.tsx";
-import { Suspense } from "react";
-import Loading from "../routes/Loading.tsx";
 
 function DefaultSidebar() {
   return (
@@ -26,28 +24,16 @@ export default function ContentSidebar() {
   const location = useLocation();
   const pathname = location.pathname.split("/")[2];
   return pathname === "home" ? (
-    <Suspense fallback={<Loading />}>
-      <HomeSidebar />
-    </Suspense>
+    <HomeSidebar />
   ) : pathname === "archives" ? (
-    <Suspense fallback={<Loading />}>
-      <ArchivesSidebar />
-    </Suspense>
+    <ArchivesSidebar />
   ) : pathname === "tags" ? (
-    <Suspense fallback={<Loading />}>
-      <TagsSidebar />
-    </Suspense>
+    <TagsSidebar />
   ) : pathname === "search" ? (
-    <Suspense fallback={<Loading />}>
-      <SearchSidebar />
-    </Suspense>
+    <SearchSidebar />
   ) : pathname === "settings" ? (
-    <Suspense fallback={<Loading />}>
-      <SettingsSidebar />
-    </Suspense>
+    <SettingsSidebar />
   ) : (
-    <Suspense fallback={<Loading />}>
-      <DefaultSidebar />
-    </Suspense>
+    <DefaultSidebar />
   );
 }

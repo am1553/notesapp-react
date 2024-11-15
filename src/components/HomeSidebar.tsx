@@ -15,8 +15,8 @@ export default function HomeSidebar() {
   });
 
   useEffect(() => {
-    if (inView && data) {
-      navigate(`/app/home/${data[0].id}`);
+    if (inView && data && data.length > 0) {
+      navigate(`/app/home/${data[0]?.id}`);
     }
   }, [data, inView, navigate]);
 

@@ -13,7 +13,7 @@ export default function ArchivesSidebar() {
   });
   const navigate = useNavigate();
   React.useEffect(() => {
-    if (inView && data) {
+    if (inView && data && data.length > 0) {
       navigate(`/app/archives/${data[0].id}`);
     }
   }, [inView, data, navigate]);

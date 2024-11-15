@@ -1,59 +1,42 @@
-import React, {
-  createContext,
-  SetStateAction,
-  useContext,
-  useEffect,
-} from "react";
+import React, { createContext, useContext, useEffect } from "react";
 import Cookies from "js-cookie";
 import { axiosAuthAPI } from "../../../lib/axios-config.ts";
 import { useMutation, UseMutationResult } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { AxiosResponse } from "axios";
 
-const defaultSignInQuery: UseMutationResult<
+type SQ = UseMutationResult<
   AxiosResponse<unknown, unknown>,
   Error,
   { email: string; password: string },
   unknown
-> = {
-  data: undefined,
-  error: null,
-  isLoading: false,
-  isError: false,
-  isSuccess: false,
-  mutate: () => {},
-  // @ts-expect-error
-  mutateAsync: async () => undefined,
-  reset: () => {},
-  status: "idle",
-  context: undefined,
-};
-
-type AuthProvider = [
-  UseMutationResult<
-    AxiosResponse<any, any>,
-    Error,
-    { email: string; password: string },
-    unknown
-  >,
+>;
+type AuthType = [
+  SQ,
   boolean,
   boolean,
-  React.Dispatch<SetStateAction<boolean>>,
+  React.Dispatch<React.SetStateAction<boolean>>,
+  React.Dispatch<React.SetStateAction<boolean>>,
 ];
-const defaultAuthProvider: AuthProvider = [
-  defaultSignInQuery,
+
+const defaultAuthProvider: AuthType = [
+  {} as SQ,
   false,
   false,
   () => {},
+  () => {},
 ];
-const AuthContext = createContext(defaultAuthProvider);
+
+const AuthContext = createContext<AuthType>(defaultAuthProvider);
 
 export default function AuthProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+  const [isAuthenticated, setIsAuthenticated] = React.useState(
+    !!Cookies.get("accessToken"),
+  );
   const [isAuthenticating, setIsAuthenticating] = React.useState(false);
   const navigate = useNavigate();
 
@@ -83,19 +66,25 @@ export default function AuthProvider({
       }
       return res;
     },
+    onError: () => {
+      setIsAuthenticated(false);
+      setIsAuthenticating(false);
+    },
   });
 
   useEffect(() => {
     if (!isAuthenticated) {
       setIsAuthenticating(false);
+      navigate("/");
     }
   }, [isAuthenticated]);
 
-  const value: AuthProvider = [
-    signInMutation,
-    isAuthenticating,
-    isAuthenticated,
-    setIsAuthenticated,
+  const value: AuthType = [
+    signInMutation, // Index 0: Provide the signInMutation result here
+    isAuthenticating, // Index 1: Pass the isAuthenticating state
+    isAuthenticated, // Index 2: Pass the isAuthenticated state
+    setIsAuthenticating, // Index 3: Pass the setIsAuthenticating function
+    setIsAuthenticated, // Index 4: Pass the setIsAuthenticated function
   ];
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
