@@ -1,13 +1,15 @@
 import CreateNewNoteBtn from "../features/notes/components/CreateNewNoteBtn.tsx";
-import { NotesList, useNotes } from "../features/notes";
+import { NotesList } from "../features/notes";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
+import {useNotes} from "../service/useNotes.ts";
 
 export default function TagsSidebar() {
   const { tagName } = useParams();
-  const { notesQuery } = useNotes({ tag: tagName });
-  const { isLoading, isError, data } = notesQuery;
+  const { useNotesQuery } = useNotes();
+  const notes = useNotesQuery({ tag: tagName });
+  const { isLoading, isError, data } = notes;
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -30,7 +32,7 @@ export default function TagsSidebar() {
           tag are shown here.
         </p>
       </div>
-      <NotesList notesQuery={notesQuery} rootPath={`app/tags/${tagName}`} />
+      <NotesList notesQuery={notes} rootPath={`app/tags/${tagName}`} />
     </aside>
   );
 }

@@ -12,6 +12,7 @@ import FontThemeRoute from "./routes/FontThemeRoute.tsx";
 import ProtectedRoutes from "../protected/ProtectedRoutes.tsx";
 import DashboardRoute from "./routes/DashboardRoute.tsx";
 import ChangePasswordRoute from "./routes/ChangePasswordRoute.tsx";
+import CreateNoteRoute from "./routes/CreateNoteRoute.tsx";
 
 const NotesRouter = [
   {
@@ -20,6 +21,10 @@ const NotesRouter = [
   },
   {
     path: "home/:noteID",
+    Component: NoteRoute,
+  },
+  {
+    path: "home/create-note",
     Component: NoteRoute,
   },
 ];
@@ -85,6 +90,7 @@ const DashboardRouter = {
       path: "",
       Component: DashboardRoute,
       children: [
+        { path: "create-note", Component: CreateNoteRoute },
         ...NotesRouter,
         ...ArchivesRouter,
         ...TagRouter,

@@ -23,7 +23,9 @@ export default function NoteSummary({
         {note.tags.map((tag) => (
           <span
             key={tag.id}
-            className={"bg-neutral-200 px-1.5 py-1 rounded-md text-preset-6"}
+            className={
+              "bg-neutral-200 px-1.5 py-1 rounded-md text-preset-6 capitalize"
+            }
           >
             {tag.name}
           </span>
@@ -41,7 +43,9 @@ export default function NoteSummary({
         {note.tags.map((tag) => (
           <span
             key={tag.id}
-            className={"bg-neutral-200 px-1.5 py-1 rounded-md text-preset-6"}
+            className={
+              "bg-neutral-200 px-1.5 py-1 rounded-md text-preset-6 capitalize"
+            }
           >
             {tag.name}
           </span>

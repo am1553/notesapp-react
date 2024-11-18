@@ -1,15 +1,18 @@
-import { useNotes } from "../../../features/notes";
-
 import NoteOverview from "../../../components/NoteOverview.tsx";
 import ContentHeader from "../../../components/ContentHeader.tsx";
+import { useEffect } from "react";
+import {useNotes} from "../../../service/useNotes.ts";
+import {useParams} from "react-router-dom";
 
 export default function NoteRoute() {
-  const { noteQuery } = useNotes();
-
-  if (noteQuery.isLoading) return <div>Loading...</div>;
-  if (noteQuery.isError) return <div>Error</div>;
-
-  const note: Note = noteQuery.data.data;
+    const {noteID} = useParams()
+  const { useNoteQuery } = useNotes();
+  const note = useNoteQuery(noteID!);
+  useEffect(() => {
+    console.log(note);
+  }, [note]);
+  if (note.isLoading) return <div>Loading...</div>;
+  if (note.isError) return <div>Error</div>;
 
   return (
     <div className="px-4 py-5 md:px-8 md:py-6 xl:p-0 flex flex-col gap-3 h-full">
@@ -20,7 +23,7 @@ export default function NoteRoute() {
         showSave={true}
       />
       <hr className={"xl:hidden"} />
-      <NoteOverview note={note} />
+      <NoteOverview note={note.data} />
     </div>
   );
 }

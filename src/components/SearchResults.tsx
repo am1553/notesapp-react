@@ -1,16 +1,18 @@
-import { useNotes } from "../features/notes";
-import { useSearchParams } from "react-router-dom";
 import NoteSummary from "../features/notes/components/NoteSummary.tsx";
+import { useNotes } from "../service/useNotes.ts";
+import { useSearchParams } from "react-router-dom";
 
 export default function SearchResults() {
   const [searchParams] = useSearchParams();
-  const searchValue = searchParams.get("search");
-  const { notesQuery } = useNotes({ searchAll: true, value: searchValue });
-  const { data, isError, isLoading } = notesQuery;
-  if (!searchValue || searchValue.trim() === "") return null;
-  if (isLoading) return null;
-  if (isError) return null;
-  if (!data) return null;
+  const { useNotesQuery } = useNotes();
+
+  const { data, isLoading, isError } = useNotesQuery({
+    searchValue: searchParams.get("search"),
+  });
+
+  if (isError) return <div>Error...</div>;
+  if (isLoading) return <div>Loading...</div>;
+
   return data.length < 1 ? (
     <div className={" max-xl:pb-10 xl:pl-8 xl:pr-4 xl:pt-2 xl:pb-12"}>
       <p className="bg-neutral-100 rounded-md p-2">

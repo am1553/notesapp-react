@@ -1,7 +1,10 @@
-import { NotesList, useNotes } from "../index.ts";
+import { NotesList } from "../index.ts";
+import {useNotes} from "../../../service/useNotes.ts";
+
 
 export default function ArchivesList() {
-  const { notesQuery } = useNotes({ isArchived: true });
+  const {useNotesQuery} = useNotes()
+  const notes = useNotesQuery({isArchived: true});
 
-  return <NotesList notesQuery={notesQuery} rootPath={"app/archives"} />;
+  return <NotesList notesQuery={notes} rootPath={"app/archives"} />;
 }

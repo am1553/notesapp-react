@@ -1,12 +1,13 @@
 import NoteOverview from "../../../components/NoteOverview.tsx";
-import { useNotes } from "../../../features/notes";
 import ContentHeader from "../../../components/ContentHeader.tsx";
+import {useNotes} from "../../../service/useNotes.ts";
 
 export default function TagWithNoteRoute() {
-  const { noteQuery } = useNotes();
-  if (noteQuery.isLoading) return <div>Loading...</div>;
-  if (noteQuery.isError) return <div>Error...</div>;
-  const note = noteQuery.data.data as Note;
+    const {useNotesQuery} = useNotes()
+    const notes = useNotesQuery()
+  if (notes.isLoading) return <div>Loading...</div>;
+  if (notes.isError) return <div>Error...</div>;
+
   return (
     <div className="px-4 py-5 md:px-8 md:py-6 xl:p-0 flex flex-col gap-3 h-full">
       <ContentHeader
@@ -16,7 +17,7 @@ export default function TagWithNoteRoute() {
         showSave={true}
       />
       <hr className={"xl:hidden"} />
-      <NoteOverview note={note} />
+      <NoteOverview note={notes.data} />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const axiosAPI = axios.create({
+const appAPI = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
@@ -19,7 +19,7 @@ const axiosAuthAPI = axios.create({
   timeout: 30000,
 });
 
-axiosAPI.interceptors.request.use(async (config) => {
+appAPI.interceptors.request.use(async (config) => {
   const token = Cookies.get("accessToken");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
@@ -29,7 +29,7 @@ axiosAPI.interceptors.request.use(async (config) => {
   return config;
 });
 
-axiosAPI.interceptors.response.use(
+appAPI.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
@@ -49,7 +49,7 @@ axiosAPI.interceptors.response.use(
         const newAccessToken = res.data.access;
         Cookies.set("accessToken", newAccessToken);
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-        return axiosAPI(originalRequest);
+        return appAPI(originalRequest);
       } catch (err) {
         console.error(err);
         console.log(
@@ -61,4 +61,4 @@ axiosAPI.interceptors.response.use(
   },
 );
 
-export { axiosAPI, axiosAuthAPI };
+export { appAPI, axiosAuthAPI };

@@ -1,12 +1,14 @@
 import CreateNewNoteBtn from "../features/notes/components/CreateNewNoteBtn.tsx";
-import { NotesList, useNotes } from "../features/notes";
+import { NotesList } from "../features/notes";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
+import {useNotes} from "../service/useNotes.ts";
 
 export default function HomeSidebar() {
-  const { notesQuery } = useNotes();
-  const { data, isLoading, isError } = notesQuery;
+  const {useNotesQuery} = useNotes()
+  const notes = useNotesQuery();
+  const { data } = notes;
   const navigate = useNavigate();
 
   const { ref, inView } = useInView({
@@ -20,16 +22,13 @@ export default function HomeSidebar() {
     }
   }, [data, inView, navigate]);
 
-  if (isLoading) return <div>Loading...</div>;
-
-  if (isError) return <div>Something went wrong...</div>;
 
   return (
     <aside className={"content-sidebar "} ref={ref}>
       <div className={"pl-8 pr-4"}>
         <CreateNewNoteBtn />
       </div>
-      <NotesList notesQuery={notesQuery} rootPath={"app/home"} />
+      <NotesList notesQuery={notes} rootPath={"app/home"} />
     </aside>
   );
 }

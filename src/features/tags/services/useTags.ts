@@ -1,34 +1,33 @@
-import { axiosAPI } from "../../../lib/axios-config.ts";
+import { appAPI } from "../../../lib/axios-config.ts";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
 
 export default function useTags() {
-  const { tagID } = useParams();
   const fetchTags = async () => {
     try {
-      const response = await axiosAPI.get("/tags");
-      return (await response.data) as Tag[];
+      const response = await appAPI.get("/tags");
+      return response.data as Tag[];
     } catch (error) {
       console.error(error);
       throw error;
     }
   };
 
-  const fetchTag = async () => {
+  const fetchTag = async (id: string) => {
     try {
-      const response = await axiosAPI.get(`/tags/${tagID}`);
-      return (await response.data) as Tag;
+      const response = await appAPI.get(`/tags/${id}`);
+      return response.data as Tag;
     } catch (error) {
       console.error(error);
       throw error;
     }
   };
 
-  const tagsQuery = useQuery({ queryKey: ["tags"], queryFn: fetchTags });
-  const tagQuery = useQuery({
-    queryKey: ["tags", tagID],
-    queryFn: fetchTag,
-    enabled: !!tagID,
-  });
-  return { tagsQuery, tagQuery };
+  const useTagsQuery = () =>
+    useQuery({ queryKey: ["tags"], queryFn: fetchTags });
+  const useTagQuery = (id: string) =>
+    useQuery({
+      queryKey: ["tags", id],
+      queryFn: () => fetchTag(id),
+    });
+  return { useTagsQuery, useTagQuery };
 }

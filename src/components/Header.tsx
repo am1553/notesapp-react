@@ -28,6 +28,8 @@ export default function Header({ className }: { className?: string }) {
       </span>
     ) : currentRoute === "search" ? (
       `Showing results for: ${!searchParams.get("search") ? "" : searchParams.get("search")}`
+    ) : currentRoute === "create-note" ? (
+      "All Notes"
     ) : (
       "Settings"
     );

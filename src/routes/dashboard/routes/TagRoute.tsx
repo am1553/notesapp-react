@@ -1,11 +1,12 @@
-import { NotesList, useNotes } from "../../../features/notes";
+import { NotesList } from "../../../features/notes";
 import { useParams } from "react-router-dom";
 import ContentHeader from "../../../components/ContentHeader.tsx";
+import {useNotes} from "../../../service/useNotes.ts";
 
 export default function TagRoute() {
   const { tagName } = useParams();
-  const { notesQuery } = useNotes({ tag: tagName });
-
+  const { useNotesQuery } = useNotes();
+  const notes = useNotesQuery({ tag: tagName })
   return (
     <div
       className={
@@ -31,7 +32,7 @@ export default function TagRoute() {
         </p>
       </div>
 
-      <NotesList notesQuery={notesQuery} rootPath={"app/home"} />
+      <NotesList notesQuery={notes} rootPath={"app/home"} />
     </div>
   );
 }

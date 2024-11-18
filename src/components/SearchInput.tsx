@@ -3,7 +3,6 @@ import { Input } from "./ui/input.tsx";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 export default function SearchInput({ className }: { className?: string }) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -14,8 +13,6 @@ export default function SearchInput({ className }: { className?: string }) {
       navigate("/app/search");
     }
   };
-
-  console.log(location);
 
   const onBlur = () => {
     if (window.innerWidth >= 1280) {

@@ -46,7 +46,6 @@ export default function LoginForm() {
     } catch (error) {
       console.log("Sign in failed: ", error);
     }
-    console.log(authenticate);
   };
 
   return isAuthenticating ? (

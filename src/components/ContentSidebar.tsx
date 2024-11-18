@@ -23,17 +23,21 @@ function DefaultSidebar() {
 export default function ContentSidebar() {
   const location = useLocation();
   const pathname = location.pathname.split("/")[2];
-  return pathname === "home" ? (
-    <HomeSidebar />
-  ) : pathname === "archives" ? (
-    <ArchivesSidebar />
-  ) : pathname === "tags" ? (
-    <TagsSidebar />
-  ) : pathname === "search" ? (
-    <SearchSidebar />
-  ) : pathname === "settings" ? (
-    <SettingsSidebar />
-  ) : (
-    <DefaultSidebar />
-  );
+
+  switch (pathname) {
+    case "home":
+      return <HomeSidebar />;
+    case "create-note":
+      return <HomeSidebar />;
+    case "archives":
+      return <ArchivesSidebar />;
+    case "tags":
+      return <TagsSidebar />;
+    case "search":
+      return <SearchSidebar />;
+    case "settings":
+      return <SettingsSidebar />;
+    default:
+      return <DefaultSidebar />;
+  }
 }

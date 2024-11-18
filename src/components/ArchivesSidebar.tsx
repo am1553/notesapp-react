@@ -1,25 +1,26 @@
-import { NotesList, useNotes } from "../features/notes";
+import { NotesList } from "../features/notes";
 import CreateNewNoteBtn from "../features/notes/components/CreateNewNoteBtn.tsx";
 import { useInView } from "react-intersection-observer";
 import { useNavigate } from "react-router-dom";
 import React from "react";
+import {useNotes} from "../service/useNotes.ts";
 
 export default function ArchivesSidebar() {
-  const { notesQuery } = useNotes({ isArchived: true });
-  const { data, isLoading, isError } = notesQuery;
+  const { useNotesQuery } = useNotes();
+  const notes = useNotesQuery({ isArchived: true });
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
   const navigate = useNavigate();
   React.useEffect(() => {
-    if (inView && data && data.length > 0) {
-      navigate(`/app/archives/${data[0].id}`);
+    if (inView && notes.data && notes.data.length > 0) {
+      navigate(`/app/archives/${notes.data[0].id}`);
     }
-  }, [inView, data, navigate]);
+  }, [inView, notes.data, navigate]);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Something went wrong...</div>;
+  if (notes.isLoading) return <div>Loading...</div>;
+  if (notes.isError) return <div>Something went wrong...</div>;
   return (
     <aside className={"content-sidebar "} ref={ref}>
       <div className={"pl-8 pr-4 flex flex-col gap-2"}>
@@ -29,7 +30,7 @@ export default function ArchivesSidebar() {
           them anytime.
         </p>
       </div>
-      <NotesList notesQuery={notesQuery} rootPath={"app/archives"} />
+      <NotesList notesQuery={notes} rootPath={"app/archives"} />
     </aside>
   );
 }

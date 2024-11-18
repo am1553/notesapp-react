@@ -1,7 +1,3 @@
-import TagIcon from "../assets/icon-tag.svg";
-import ClockIcon from "../assets/icon-clock.svg";
-import { Button } from "./ui/button.tsx";
-import moment from "moment";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,60 +7,83 @@ import {
   FormField,
   FormItem,
   FormMessage,
-} from "./ui/form.tsx";
-import { useEffect } from "react";
+} from "../../../components/ui/form.tsx";
+import { Button } from "../../../components/ui/button.tsx";
+import TagIcon from "../../../assets/icon-tag.svg";
+import ClockIcon from "../../../assets/icon-clock.svg";
+import ContentHeader from "../../../components/ContentHeader.tsx";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "../../../hooks/use-toast.ts";
 import { useQueryClient } from "@tanstack/react-query";
-import {useNotes} from "../service/useNotes.ts";
+import { useNotes } from "../../../service/useNotes.ts";
+
 const formSchema = z.object({
   title: z
     .string()
-    .min(3, { message: "Title cannot be less than 3 characters." }),
-  description: z.string().trim(),
+    .min(3, { message: "Title cannot be less than 3 characters." })
+    .trim(),
+  description: z.string().trim().trim(),
   isArchived: z.boolean(),
-  tags: z.string(),
+  tags: z.string().trim(),
 });
-export default function NoteOverview({ note }: { note: Note }) {
+export default function CreateNoteRoute() {
+  const { toast } = useToast();
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const {useUpdateNote} = useNotes();
-  const updateNote = useUpdateNote;
-  console.log(note);
-  const date = moment(note.updatedAt).format("D MMM YYYY");
-  const tagsToString = note.tags
-    .map((tag) => tag.name)
-    .toString()
-    .replace(/,/g, ", ");
-
+  const { useCreateNote } = useNotes();
+  const createNote = useCreateNote();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: note.title || "",
-      description: note.description.replace(/\\n/g, "\n") || "",
-      isArchived: note.isArchived || false,
-      tags: tagsToString || "",
+      title: "",
+      description: "",
+      isArchived: false,
+      tags: "",
     },
   });
 
-  const handleSave = async (data: z.infer<typeof formSchema>) => {
-    const tags : Tag[] = data.tags.split(",").map(tagStr => ({name: tagStr}));
+  const handleSave = async (formData: z.infer<typeof formSchema>) => {
+    const tags: Tag[] = formData.tags
+      .split(",")
+      .map((tagStr) => ({ name: tagStr }));
     try {
-      await updateNote.mutateAsync({...data, tags})
-      await queryClient.invalidateQueries({ queryKey: ["notes", note.id] });
+      await createNote.mutateAsync(
+        { ...formData, tags: tags },
+        {
+          onSuccess: async (res) => {
+            const data = res.data;
+            await queryClient.invalidateQueries({
+              queryKey: ["notes"],
+            });
+            await queryClient.invalidateQueries({
+              queryKey: ["tags"],
+            });
+            navigate(`/app/home/${data.id}`);
+            toast({
+              title: "Success!",
+              description: `${data.title} note added.`,
+            });
+          },
+        },
+      );
     } catch (error) {
       console.error(error);
+      toast({
+        title: "Failed.",
+        description: `Please check the data provided.`,
+        variant: "destructive",
+      });
     }
   };
 
-  useEffect(() => {
-    form.reset({
-      title: note.title,
-      description: note.description.replace(/\\n/g, "\n"),
-      isArchived: note.isArchived,
-      tags: tagsToString || "",
-    });
-  }, [note, form, tagsToString]);
-
   return (
     <div className={"h-full flex flex-col gap-2"}>
+      <ContentHeader
+        showDelete={false}
+        showArchive={false}
+        showCancel={true}
+        showSave={true}
+      />
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleSave)}
@@ -76,8 +95,9 @@ export default function NoteOverview({ note }: { note: Note }) {
               <FormItem>
                 <FormControl>
                   <input
+                    placeholder={"Enter a title..."}
                     className={
-                      "text-preset-1 font-bold capitalize outline-none w-full"
+                      "text-preset-1 font-bold capitalize outline-none w-full placeholder:normal-case"
                     }
                     {...field}
                   />
@@ -101,7 +121,9 @@ export default function NoteOverview({ note }: { note: Note }) {
                   </div>
                   <FormControl>
                     <input
-                      className={"py-2 outline-none capitalize"}
+                      className={
+                        "py-2 outline-none capitalize placeholder:normal-case"
+                      }
                       {...field}
                       placeholder={
                         "Add tags separated by commas (e.g. Work, Planning)"
@@ -113,7 +135,7 @@ export default function NoteOverview({ note }: { note: Note }) {
                     <img src={ClockIcon} height={16} width={16} alt="clock" />
                     <span>Last edited</span>
                   </div>
-                  <p className={"col-start-2"}>{date}</p>
+                  <p className={"col-start-2"}>Not yet saved.</p>
                 </div>
               </FormItem>
             )}

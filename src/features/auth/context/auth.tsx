@@ -47,7 +47,7 @@ export default function AuthProvider({
         return await axiosAuthAPI.post(`/sign-in`, data);
       } catch (err) {
         setIsAuthenticated(false);
-        console.log(err);
+        console.error(err);
         throw err;
       }
     },

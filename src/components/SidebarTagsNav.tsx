@@ -4,15 +4,16 @@ import RightArrowIcon from "../assets/icon-chevron-right.svg";
 import TagIcon from "../assets/icon-tag.svg";
 
 export default function SidebarTagsNav() {
-  const { tagsQuery } = useTags();
+  const { useTagsQuery } = useTags();
+  const tags = useTagsQuery();
   const activeNav = useLocation().pathname.split("/")[3];
 
-  if (tagsQuery.isLoading) return <div>Loading...</div>;
-  if (tagsQuery.isError) return <div>Error...</div>;
+  if (tags.isLoading) return <div>Loading...</div>;
+  if (tags.isError) return <div>Error...</div>;
 
   return (
     <nav className={"flex flex-col gap-2"}>
-      {tagsQuery.data?.map((tag) => {
+      {tags.data?.map((tag) => {
         const isActive = activeNav === tag.name;
 
         return isActive ? (
