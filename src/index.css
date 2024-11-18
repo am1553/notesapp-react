@@ -64,4 +64,8 @@
     .flex-center {
         @apply flex justify-center items-center;
     }
+
+    .filter-white-icon {
+        filter: brightness(0) saturate(100%) invert(95%) sepia(0%) saturate(18%) hue-rotate(312deg) brightness(105%) contrast(104%);
+    }
 }

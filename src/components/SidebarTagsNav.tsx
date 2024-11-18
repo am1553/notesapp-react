@@ -10,10 +10,11 @@ export default function SidebarTagsNav() {
 
   if (tags.isLoading) return <div>Loading...</div>;
   if (tags.isError) return <div>Error...</div>;
-
+  const data = tags.data || [];
+  console.log(data);
   return (
     <nav className={"flex flex-col gap-2"}>
-      {tags.data?.map((tag) => {
+      {data.map((tag) => {
         const isActive = activeNav === tag.name;
 
         return isActive ? (

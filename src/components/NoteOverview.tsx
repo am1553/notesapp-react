@@ -12,9 +12,11 @@ import {
   FormItem,
   FormMessage,
 } from "./ui/form.tsx";
-import { useEffect } from "react";
+
+import { useNotes } from "../service/useNotes.ts";
 import { useQueryClient } from "@tanstack/react-query";
-import {useNotes} from "../service/useNotes.ts";
+import { useToast } from "../hooks/use-toast.ts";
+
 const formSchema = z.object({
   title: z
     .string()
@@ -23,45 +25,69 @@ const formSchema = z.object({
   isArchived: z.boolean(),
   tags: z.string(),
 });
-export default function NoteOverview({ note }: { note: Note }) {
-  const queryClient = useQueryClient();
-  const {useUpdateNote} = useNotes();
-  const updateNote = useUpdateNote;
-  console.log(note);
-  const date = moment(note.updatedAt).format("D MMM YYYY");
-  const tagsToString = note.tags
-    .map((tag) => tag.name)
-    .toString()
-    .replace(/,/g, ", ");
 
+export default function NoteOverview({
+  note,
+}: {
+  note: Note & { tags: Tag[] };
+}) {
+  const queryClient = useQueryClient();
+  const date = moment(note.updatedAt).format("D MMM YYYY");
+  const { useUpdateNote } = useNotes();
+  const updateNote = useUpdateNote();
+  const { toast } = useToast();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: note.title || "",
-      description: note.description.replace(/\\n/g, "\n") || "",
+      title: note.title,
+      description: note.description?.replace(/\\n/g, "\n") || "",
       isArchived: note.isArchived || false,
-      tags: tagsToString || "",
+      tags:
+        note.tags
+          ?.map((tag) => tag.name)
+          ?.toString()
+          ?.replace(/,/g, ", ") || "",
     },
   });
 
   const handleSave = async (data: z.infer<typeof formSchema>) => {
-    const tags : Tag[] = data.tags.split(",").map(tagStr => ({name: tagStr}));
+    const formatTags = data.tags
+      .split(",")
+      .map((tag: string) => ({ name: tag }));
+    const formData: Note & { tags: Tag[] } = {
+      ...data,
+      tags: formatTags,
+      id: note.id,
+    };
     try {
-      await updateNote.mutateAsync({...data, tags})
-      await queryClient.invalidateQueries({ queryKey: ["notes", note.id] });
+      await updateNote.mutateAsync(formData, {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ["notes", note.id] });
+          queryClient.invalidateQueries({ queryKey: ["notes"] });
+          queryClient.invalidateQueries({ queryKey: ["tags"] });
+          toast({
+            title: "Success",
+            description: "Note updated successfully.",
+          });
+        },
+      });
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   };
 
-  useEffect(() => {
-    form.reset({
-      title: note.title,
-      description: note.description.replace(/\\n/g, "\n"),
-      isArchived: note.isArchived,
-      tags: tagsToString || "",
-    });
-  }, [note, form, tagsToString]);
+  // useEffect(() => {
+  //   form.reset({
+  //     title: note.title,
+  //     description: note.description?.replace(/\\n/g, "\n"),
+  //     isArchived: note.isArchived,
+  //     tags:
+  //       note.tags
+  //         ?.map((tag) => tag.name)
+  //         ?.toString()
+  //         ?.replace(/,/g, ", ") || "",
+  //   });
+  // }, [form]);
 
   return (
     <div className={"h-full flex flex-col gap-2"}>
@@ -134,9 +160,13 @@ export default function NoteOverview({ note }: { note: Note }) {
               </FormItem>
             )}
           />
-          <div className={"flex w-fit gap-4 max-xl:hidden"}>
-            <Button type={"submit"}>Save Note</Button>
-            <Button variant={"secondary"}>Cancel</Button>
+          <div className={"flex w-full gap-4 max-xl:hidden border-t pt-5"}>
+            <Button type={"submit"} className={"w-fit"}>
+              Save Note
+            </Button>
+            <Button variant={"secondary"} className={"w-fit"}>
+              Cancel
+            </Button>
           </div>
         </form>
       </Form>

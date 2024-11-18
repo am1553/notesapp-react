@@ -2,7 +2,8 @@ import useTags from "../services/useTags.ts";
 import { Link } from "react-router-dom";
 import TagIcon from "../../../assets/icon-tag.svg";
 export default function TagsList() {
-  const { tagsQuery } = useTags();
+  const { useTagsQuery } = useTags();
+  const tagsQuery = useTagsQuery();
 
   if (tagsQuery.isLoading) return <div>Loading...</div>;
   if (tagsQuery.isError) return <div>Error...</div>;

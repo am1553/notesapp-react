@@ -3,11 +3,11 @@ import { NotesList } from "../features/notes";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
-import {useNotes} from "../service/useNotes.ts";
+import { useNotes } from "../service/useNotes.ts";
 
 export default function HomeSidebar() {
-  const {useNotesQuery} = useNotes()
-  const notes = useNotesQuery();
+  const { useNotesQuery } = useNotes();
+  const notes = useNotesQuery({ isArchived: false });
   const { data } = notes;
   const navigate = useNavigate();
 
@@ -22,7 +22,9 @@ export default function HomeSidebar() {
     }
   }, [data, inView, navigate]);
 
-
+  if (notes.isLoading) return <div>Loading...</div>;
+  if (notes.isError) return <div>Something went wrong...</div>;
+  console.log(data);
   return (
     <aside className={"content-sidebar "} ref={ref}>
       <div className={"pl-8 pr-4"}>

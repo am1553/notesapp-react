@@ -3,12 +3,12 @@ import { NotesList } from "../features/notes";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import {useNotes} from "../service/useNotes.ts";
+import { useNotes } from "../service/useNotes.ts";
 
 export default function TagsSidebar() {
   const { tagName } = useParams();
   const { useNotesQuery } = useNotes();
-  const notes = useNotesQuery({ tag: tagName });
+  const notes = useNotesQuery({ tagName });
   const { isLoading, isError, data } = notes;
   const { ref, inView } = useInView({
     triggerOnce: true,

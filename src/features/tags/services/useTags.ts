@@ -5,6 +5,7 @@ export default function useTags() {
   const fetchTags = async () => {
     try {
       const response = await appAPI.get("/tags");
+
       return response.data as Tag[];
     } catch (error) {
       console.error(error);

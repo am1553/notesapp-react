@@ -15,7 +15,7 @@ export default function ContentLayout({
       </aside>
       <div className={"px-8 py-6"}>{content}</div>
 
-      <aside className={"border-l py-4 pl-4 pr-8"}>{actionBar}</aside>
+      <aside className={""}>{actionBar}</aside>
     </div>
   );
 }
