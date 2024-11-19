@@ -5,16 +5,34 @@ import MonospaceIcon from "../../../assets/icon-font-monospace.svg";
 import { RadioGroup } from "../../../components/ui/radio-group.tsx";
 
 import SettingPanel from "../../../features/settings/components/SettingPanel.tsx";
+import { appAPI } from "../../../lib/axios-config.ts";
+import { useSettings } from "../../../service/useSettings.ts";
 
 export default function FontThemeRoute() {
+  const { useUpdateSettings, useSettingsQuery } = useSettings();
+  const settingsQuery = useSettingsQuery();
+  const updateSettings = useUpdateSettings();
+
+  const handleUpdateFont = async (
+    font: "sans-serif" | "serif" | "monospace",
+  ) => {
+    await updateSettings.mutateAsync({
+      font,
+    });
+  };
+
+  if (settingsQuery.isLoading) return <div>Loading...</div>;
+  if (settingsQuery.isError) return <div>Error...</div>;
+
   return (
     <SettingPanel
       title={"Color Theme"}
       description={"Choose your color theme:"}
     >
       <RadioGroup
-        defaultValue="dark-theme"
+        defaultValue={settingsQuery.data.font || "sans-serif"}
         className="flex flex-col gap-2 md:gap-4 my-1"
+        onValueChange={handleUpdateFont}
       >
         <SettingItem
           title={"Sans-serif"}

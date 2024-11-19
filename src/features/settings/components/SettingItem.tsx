@@ -11,7 +11,7 @@ export default function SettingItem({
   title: string;
   description: string;
   icon: string;
-  value: string;
+  value: "light" | "dark" | "system" | "sans-serif" | "serif" | "monospace";
 }) {
   const radioRef = useRef<HTMLButtonElement>(null);
 

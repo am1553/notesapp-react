@@ -6,7 +6,7 @@ export default function useTags() {
     try {
       const response = await appAPI.get("/tags");
 
-      return response.data as Tag[];
+      return response.data ? (response.data as Tag[]) : [];
     } catch (error) {
       console.error(error);
       throw error;

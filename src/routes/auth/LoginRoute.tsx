@@ -8,7 +8,7 @@ export default function LoginRoute() {
   return (
     <AuthLayout>
       <AuthForm
-        title="Welcome to Note"
+        title="Welcome to Notes"
         description={isAuthenticating ? "" : "Please log in to continue"}
       >
         <LoginForm />

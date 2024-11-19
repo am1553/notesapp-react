@@ -44,9 +44,10 @@ export default function NoteOverview({
       isArchived: note.isArchived || false,
       tags:
         note.tags
-          ?.map((tag) => tag.name)
-          ?.toString()
-          ?.replace(/,/g, ", ") || "",
+          .filter((tag) => tag)
+          .map((tag) => tag.name)
+          .toString()
+          .replace(/,/g, ", ") || "",
     },
   });
 
