@@ -21,7 +21,7 @@ export default function ArchivesSidebar() {
 
   if (notes.isLoading) return <div>Loading...</div>;
   if (notes.isError) return <div>Something went wrong...</div>;
-  console.log(notes);
+
   return (
     <aside className={"content-sidebar "} ref={ref}>
       <div className={"pl-8 pr-4 flex flex-col gap-2"}>

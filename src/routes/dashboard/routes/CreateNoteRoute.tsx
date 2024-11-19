@@ -61,7 +61,7 @@ export default function CreateNoteRoute() {
             navigate(`/app/home/${data.id}`);
             toast({
               title: "Success!",
-              description: `${data.title} note added.`,
+              description: `Note created successfully.`,
             });
           },
         },
@@ -77,13 +77,14 @@ export default function CreateNoteRoute() {
   };
 
   return (
-    <div className={"h-full flex flex-col gap-2"}>
+    <div
+      className={"h-full flex flex-col gap-2 px-4 py-5 md:px-8 md:py-6 xl:p-0"}
+    >
       <ContentHeader
-        showDelete={false}
-        showArchive={false}
-        showCancel={true}
-        showSave={true}
+        showAction={false}
+        onSave={form.handleSubmit(handleSave)}
       />
+      <hr />
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleSave)}
@@ -125,9 +126,7 @@ export default function CreateNoteRoute() {
                         "py-2 outline-none capitalize placeholder:normal-case"
                       }
                       {...field}
-                      placeholder={
-                        "Add tags separated by commas (e.g. Work, Planning)"
-                      }
+                      placeholder={"e.g. Work, Planning"}
                     />
                   </FormControl>
                   <FormMessage />

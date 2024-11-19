@@ -3,9 +3,7 @@ import SansSerifIcon from "../../../assets/icon-font-sans-serif.svg";
 import SerifIcon from "../../../assets/icon-font-serif.svg";
 import MonospaceIcon from "../../../assets/icon-font-monospace.svg";
 import { RadioGroup } from "../../../components/ui/radio-group.tsx";
-
 import SettingPanel from "../../../features/settings/components/SettingPanel.tsx";
-import { appAPI } from "../../../lib/axios-config.ts";
 import { useSettings } from "../../../service/useSettings.ts";
 
 export default function FontThemeRoute() {

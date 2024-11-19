@@ -22,7 +22,7 @@ export default function SearchRoute() {
           : null}
       </p>
 
-      {searchValue !== "" ? <SearchResults /> : null}
+      <SearchResults />
     </div>
   );
 }

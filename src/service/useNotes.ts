@@ -11,8 +11,8 @@ export const useNotes = () => {
     return response.data;
   };
 
-  const fetchNote = async (id: string | unknown) => {
-    const response = await appAPI.get(`/notes/${id}`);
+  const fetchNote = async (params: Record<string, any>) => {
+    const response = await appAPI.get(`/notes/${params.id}`, params);
     return response.data;
   };
 
@@ -32,11 +32,11 @@ export const useNotes = () => {
       queryFn: () => fetchNotes(params),
     });
 
-  const useNoteQuery = (id: string | undefined) =>
+  const useNoteQuery = (params: Record<string, any> = {}) =>
     useQuery({
-      queryKey: ["notes", id],
-      queryFn: () => fetchNote(id),
-      enabled: !!id,
+      queryKey: ["notes", params],
+      queryFn: () => fetchNote(params),
+      enabled: !!params.id,
     });
   const useCreateNote = () =>
     useMutation({
