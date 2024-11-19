@@ -61,6 +61,7 @@ export default function SignUpForm() {
 
       localStorage.setItem("user", JSON.stringify(user));
       setIsAuthenticated(true);
+      setIsAuthenticating(false);
       navigate("/app/home");
       console.log("Sign up successful: ", res);
     } catch (error) {
