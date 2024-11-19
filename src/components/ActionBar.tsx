@@ -23,5 +23,10 @@ export default function ActionBar() {
       <ActionDialog type={"restore"} />
       <ActionDialog type={"delete"} />
     </div>
+  ) : pathname[2] === "tags" && notes.data?.length > 0 ? (
+    <div className={"flex flex-col gap-3 border-l h-full py-4 pl-4 pr-8"}>
+      <ActionDialog type={"archive"} />
+      <ActionDialog type={"delete"} />
+    </div>
   ) : null;
 }

@@ -24,6 +24,7 @@ export default function ArchiveRoute() {
 
   const handleSave = () => {
     if (!noteRef.current) return;
+    // @ts-ignore
     noteRef.current.submit();
   };
 

@@ -27,6 +27,7 @@ export default function NoteRoute() {
 
   const handleSave = () => {
     if (!noteRef.current) return;
+    // @ts-ignore
     noteRef.current.submit();
   };
 

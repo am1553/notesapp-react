@@ -5,7 +5,7 @@ import { RouterProvider } from "react-router-dom";
 import router from "./routes/router.tsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "./components/ui/toaster";
 
 const queryClient = new QueryClient();
 

@@ -23,7 +23,7 @@ export default function ActionDialog({ type }: ActionDialog) {
   const { useUpdateNote, useNoteQuery, useNotesQuery, useDeleteNote } =
     useNotes();
   const notes = useNotesQuery();
-  const noteQuery = useNoteQuery(noteID);
+  const noteQuery = useNoteQuery({ id: noteID });
   const navigate = useNavigate();
   const deleteNote = useDeleteNote();
   const updateNote = useUpdateNote();
