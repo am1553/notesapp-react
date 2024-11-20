@@ -13,6 +13,7 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import { useNotes } from "../service/useNotes.ts";
 import { useQueryClient } from "@tanstack/react-query";
+import { useStyleContext } from "../context/StyleContext.tsx";
 
 type ActionDialog = {
   type: "archive" | "restore" | "delete";
@@ -20,6 +21,7 @@ type ActionDialog = {
 
 export default function ActionDialog({ type }: ActionDialog) {
   const { noteID } = useParams();
+  const { theme } = useStyleContext();
   const { useUpdateNote, useNoteQuery, useNotesQuery, useDeleteNote } =
     useNotes();
   const notes = useNotesQuery();
@@ -73,9 +75,7 @@ export default function ActionDialog({ type }: ActionDialog) {
     <Dialog>
       <DialogTrigger>
         <div
-          className={
-            "inline-flex items-center justify-start px-4 py-3 bg-neutral-100 text-neutral-600 hover:bg-white hover:outline-neutral-300 hover:outline focus w-full gap-2 whitespace-nowrap rounded-lg text-preset-4 font-medium transition-colors focus disabled:pointer-events-none disabled:opacity-50"
-          }
+          className={`inline-flex items-center justify-start px-4 py-3 ${theme === "light" ? "bg-neutral-100 text-neutral-600 hover:bg-white" : "bg-neutral-950 border border-neutral-600"} hover:outline-neutral-300 hover:outline focus w-full gap-2 whitespace-nowrap rounded-lg text-preset-4 font-medium transition-colors focus disabled:pointer-events-none disabled:opacity-50`}
         >
           <img
             src={
@@ -88,6 +88,7 @@ export default function ActionDialog({ type }: ActionDialog) {
             height={18}
             width={18}
             alt="archive"
+            className={`${theme === "light" ? "" : "filter-white-icon"}`}
           />
           <span>
             {type === "archive"
@@ -98,7 +99,9 @@ export default function ActionDialog({ type }: ActionDialog) {
           </span>
         </div>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent
+        className={`${theme === "light" ? "bg-white text-neutral-950" : "bg-neutral-950 text-white"}`}
+      >
         <DialogHeader>
           <DialogTitle>Are you sure?</DialogTitle>
           <DialogDescription>

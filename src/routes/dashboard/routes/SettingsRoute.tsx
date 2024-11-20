@@ -4,7 +4,6 @@ import LockIcon from "../../../assets/icon-lock.svg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import LogoutIcon from "../../../assets/icon-logout.svg";
 import { useStyleContext } from "../../../context/StyleContext.tsx";
-import RightArrowIcon from "../../../assets/icon-chevron-right.svg";
 import { Button } from "../../../components/ui/button.tsx";
 import Cookies from "js-cookie";
 import { useAuth } from "../../../features/auth/context/auth.tsx";
@@ -22,7 +21,7 @@ export default function SettingsRoute() {
   const [, , , , setIsAuthenticated] = useAuth();
   const navigate = useNavigate();
   const linkTheme = theme === "light" ? "bg-neutral-100" : "bg-neutral-800";
-  const iconTheme = theme === "light" ? "" : "filter-white-icon";
+
   const handleLogout = () => {
     localStorage.removeItem("user");
     Cookies.remove("accessToken");
