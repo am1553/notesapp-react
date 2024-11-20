@@ -16,7 +16,7 @@ export default function NotesRoute() {
       <Link
         to={"/app/create-note"}
         className={
-          "flex-center h-12 w-12 rounded-full bg-blue-500 absolute bottom-20 right-10 shadow-md"
+          "flex-center h-12 w-12 rounded-full bg-blue-500 fixed bottom-20 right-10 shadow-md"
         }
       >
         <img src={AddIcon} height={24} width={24} alt="add" />
