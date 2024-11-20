@@ -8,8 +8,8 @@ export default function TagRoute() {
   const { theme } = useStyleContext();
   const notes = useNotesQuery({ tagName });
 
-  if (notes.isLoading) return <div>Loading...</div>;
-  if (notes.isError) return <div>Error</div>;
+  if (notes.isLoading) return <div></div>;
+  if (notes.isError) return <div>Something went wrong...</div>;
 
   console.log(tagName);
   return (

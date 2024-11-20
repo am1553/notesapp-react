@@ -16,8 +16,8 @@ export default function ThemeRoute() {
       theme,
     });
   };
-  if (settingsQuery.isLoading) return <div>Loading...</div>;
-  if (settingsQuery.isError) return <div>Error...</div>;
+  if (settingsQuery.isLoading) return <div></div>;
+  if (settingsQuery.isError) return <div>Something went wrong...</div>;
   return (
     <SettingPanel
       title={"Color Theme"}

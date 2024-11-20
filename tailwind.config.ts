@@ -42,7 +42,7 @@ export default {
         "preset-1": ["24px", { lineHeight: "120%", letterSpacing: "-0.5px" }],
         "preset-2": ["20px", { lineHeight: "120%", letterSpacing: "-0.5px" }],
         "preset-3": ["16px", { lineHeight: "120%", letterSpacing: "-0.3px" }],
-        "preset-4": ["14px", { lineHeight: "120%", letterSpacing: "-0.2px" }],
+        "preset-4": ["16px", { lineHeight: "120%", letterSpacing: "-0.2px" }],
         "preset-6": ["12px", { lineHeight: "120%", letterSpacing: "-0.2px" }],
       },
     },

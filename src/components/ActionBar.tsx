@@ -11,8 +11,8 @@ export default function ActionBar() {
     isArchived: pathname[2] !== "home",
   });
   const { theme } = useStyleContext();
-  if (notes.isLoading) return <div>Loading...</div>;
-  if (notes.isError) return <div>Error...</div>;
+  if (notes.isLoading) return <div></div>;
+  if (notes.isError) return <div>Something went wrong...</div>;
 
   return pathname[2] === "home" && notes.data?.length > 0 ? (
     <div
@@ -32,7 +32,6 @@ export default function ActionBar() {
     <div
       className={`flex flex-col gap-3 border-l h-full py-4 pl-4 pr-8 ${theme === "light" ? "border-neutral-200" : "border-neutral-800"}`}
     >
-      <ActionDialog type={"archive"} />
       <ActionDialog type={"delete"} />
     </div>
   ) : null;

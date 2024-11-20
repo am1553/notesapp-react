@@ -63,8 +63,8 @@ export default function NoteRoute() {
     });
   };
 
-  if (note.isLoading) return <div>Loading...</div>;
-  if (note.isError) return <div>Error</div>;
+  if (note.isLoading) return <div></div>;
+  if (note.isError) return <div>Something went wrong...</div>;
   console.log(note);
   return (
     <div className="px-4 py-5 md:px-8 md:py-6 flex flex-col gap-3 h-full">

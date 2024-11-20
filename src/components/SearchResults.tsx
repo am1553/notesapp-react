@@ -12,8 +12,8 @@ export default function SearchResults() {
     searchValue: searchParams.get("search"),
   });
 
-  if (isError) return <div>Error...</div>;
-  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Something went wrong...</div>;
+  if (isLoading) return <div></div>;
 
   return data.length < 1 ? (
     <div className={" max-xl:pb-10 xl:pl-8 xl:pr-4 xl:pt-2 xl:pb-12"}>

@@ -7,8 +7,8 @@ export default function TagsList() {
   const { theme } = useStyleContext();
   const tagsQuery = useTagsQuery();
 
-  if (tagsQuery.isLoading) return <div>Loading...</div>;
-  if (tagsQuery.isError) return <div>Error...</div>;
+  if (tagsQuery.isLoading) return <div></div>;
+  if (tagsQuery.isError) return <div>Something went wrong...</div>;
   const tags = tagsQuery.data;
   return (
     <ul className={"flex flex-col"}>

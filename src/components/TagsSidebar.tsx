@@ -21,7 +21,7 @@ export default function TagsSidebar() {
     }
   }, [inView, data, navigate]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div></div>;
   if (isError) return <div>Something went wrong...</div>;
   return (
     <aside className={"content-sidebar max-xl:hidden "} ref={ref}>

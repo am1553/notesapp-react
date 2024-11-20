@@ -24,7 +24,7 @@ export default function HomeSidebar() {
     }
   }, [data, inView, navigate, pathname]);
 
-  if (notes.isLoading) return <div>Loading...</div>;
+  if (notes.isLoading) return <div></div>;
   if (notes.isError) return <div>Something went wrong...</div>;
   return (
     <aside className={"content-sidebar "} ref={ref}>

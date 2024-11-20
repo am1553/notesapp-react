@@ -19,7 +19,7 @@ export default function ArchivesSidebar() {
     }
   }, [inView, notes.data, navigate]);
 
-  if (notes.isLoading) return <div>Loading...</div>;
+  if (notes.isLoading) return <div></div>;
   if (notes.isError) return <div>Something went wrong...</div>;
 
   return (

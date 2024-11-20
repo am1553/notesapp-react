@@ -12,7 +12,7 @@ export default function NotesList({
   emptyMessage?: string;
 }) {
   const { theme } = useStyleContext();
-  if (notesQuery.isLoading || notesQuery.isError) return <div>Loading...</div>;
+  if (notesQuery.isLoading || notesQuery.isError) return <div></div>;
 
   return notesQuery.data < 1 ? (
     <div className={`max-xl:pb-10 xl:pl-8 xl:pr-4 xl:pt-2 xl:pb-12`}>

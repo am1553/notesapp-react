@@ -16,7 +16,7 @@ import {
 import { useNotes } from "../service/useNotes.ts";
 import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "../hooks/use-toast.ts";
-import { forwardRef, useImperativeHandle } from "react";
+import { forwardRef, useEffect, useImperativeHandle } from "react";
 import { useNavigate } from "react-router-dom";
 import { useStyleContext } from "../context/StyleContext.tsx";
 
@@ -79,6 +79,20 @@ const NoteOverview = forwardRef(
         console.log(error);
       }
     };
+    const { reset } = form;
+    useEffect(() => {
+      reset({
+        title: note.title,
+        description: note.description?.replace(/\\n/g, "\n") || "",
+        isArchived: note.isArchived || false,
+        tags:
+          note.tags
+            .filter((tag) => tag)
+            .map((tag) => tag.name)
+            .toString()
+            .replace(/,/g, ", ") || "",
+      });
+    }, [note, reset]);
 
     useImperativeHandle(ref, () => ({
       submit: () => {

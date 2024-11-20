@@ -10,8 +10,8 @@ export default function SidebarTagsNav() {
   const tags = useTagsQuery();
   const activeNav = useLocation().pathname.split("/")[3];
 
-  if (tags.isLoading) return <div>Loading...</div>;
-  if (tags.isError) return <div>Error...</div>;
+  if (tags.isLoading) return <div></div>;
+  if (tags.isError) return <div>Something went wrong...</div>;
   const data = tags.data || [];
   console.log(data);
   return (

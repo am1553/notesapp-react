@@ -13,7 +13,7 @@ export default function AuthForm({
   return (
     <div
       className={
-        "bg-white rounded-lg px-4 py-10 md:px-8 md:py-12 lg:p-12 flex-center flex-col gap-4 w-full max-w-screen-sm"
+        "bg-white text-neutral-950 rounded-lg px-4 py-10 md:px-8 md:py-12 lg:p-12 flex-center flex-col gap-4 w-full max-w-screen-sm"
       }
     >
       <Logo />

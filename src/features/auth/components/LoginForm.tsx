@@ -29,6 +29,7 @@ const formSchema = z.object({
 export default function LoginForm() {
   const [authenticate, isAuthenticating] = useAuth();
   const passwordInputRef = useRef<HTMLInputElement>(null);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -102,6 +103,15 @@ export default function LoginForm() {
           name={"password"}
         />
         <Button type={"submit"}>Login</Button>
+        <Button
+          type={"button"}
+          variant={"secondary"}
+          onClick={() =>
+            handleSubmit({ email: "example@example.com", password: "password" })
+          }
+        >
+          Demo
+        </Button>
       </form>
       <div>
         <span>No account yet? </span>
