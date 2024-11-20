@@ -1,4 +1,5 @@
 import React from "react";
+import { useStyleContext } from "../context/StyleContext.tsx";
 
 export default function MobileLayout({
   children,
@@ -7,5 +8,15 @@ export default function MobileLayout({
   children: React.ReactNode;
   className?: string;
 }) {
-  return <div className={"h-full " + className}>{children}</div>;
+  const { theme } = useStyleContext();
+  return (
+    <div
+      className={
+        `h-full ${theme === "light" ? "bg-neutral-200" : "bg-neutral-950"} ` +
+        className
+      }
+    >
+      {children}
+    </div>
+  );
 }

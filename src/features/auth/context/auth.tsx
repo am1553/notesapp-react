@@ -51,7 +51,7 @@ export default function AuthProvider({
         throw err;
       }
     },
-    onSuccess: (res) => {
+    onSuccess: async (res) => {
       const data: SignIn = res.data;
       const { token, user } = data;
       Cookies.set("accessToken", token.access);

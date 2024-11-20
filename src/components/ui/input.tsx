@@ -1,12 +1,14 @@
 import * as React from "react";
 import { cn } from "../../lib/utils.ts";
+import { useStyleContext } from "../../context/StyleContext.tsx";
 const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
   ({ className, type, ...props }, ref) => {
+    const { theme } = useStyleContext();
     return (
       <input
         type={type}
         className={cn(
-          "flex w-full rounded-lg outline-neutral-300 outline bg-transparent px-4 py-3 text-base shadow-sm transition-colors focus disabled:cursor-not-allowed disabled:opacity-50",
+          `flex w-full rounded-lg ${theme === "light" ? "outline-neutral-300 focus-visible:outline-neutral-800 focus-visible:outline" : "outline-neutral-800 focus-visible:outline-neutral-300 focus-visible:outline"} outline bg-transparent px-4 py-3 text-base shadow-sm transition-colors focus disabled:cursor-not-allowed disabled:opacity-50`,
           className,
         )}
         ref={ref}

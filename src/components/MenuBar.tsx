@@ -1,14 +1,17 @@
 import { ROUTES } from "../constants/routes.ts";
 import { Link, useLocation } from "react-router-dom";
+import { useStyleContext } from "../context/StyleContext.tsx";
 
 export default function MenuBar({ className }: { className?: string }) {
   const location = useLocation();
+  const { theme } = useStyleContext();
   const pathname = location.pathname.split("/")[2];
   const activeNav = pathname === "notes" ? "home" : pathname;
   return (
     <nav
       className={
-        "bg-white flex-center justify-around px-4 border-t " + className
+        ` flex-center justify-around px-4 border-t ${theme === "light" ? "border-neutral-200 bg-white" : "border-neutral-800 bg-neutral-950"} ` +
+        className
       }
     >
       {ROUTES.map((route, i) => (
@@ -28,7 +31,11 @@ export default function MenuBar({ className }: { className?: string }) {
               {route.label}
             </span>
           </Link>
-          {i < ROUTES.length - 1 && <div className="w-[1px] bg-neutral-100" />}
+          {i < ROUTES.length - 1 && (
+            <div
+              className={`w-[1px] ${theme === "light" ? "bg-neutral-100" : "bg-neutral-800"}`}
+            />
+          )}
         </div>
       ))}
     </nav>

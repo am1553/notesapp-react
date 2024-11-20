@@ -8,7 +8,6 @@ import { useSettings } from "../../../service/useSettings.ts";
 
 export default function ThemeRoute() {
   const { useSettingsQuery, useUpdateSettings } = useSettings();
-
   const settingsQuery = useSettingsQuery();
   const settings = settingsQuery.data;
   const updateSettings = useUpdateSettings();

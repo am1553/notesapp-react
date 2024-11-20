@@ -18,6 +18,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "../hooks/use-toast.ts";
 import { forwardRef, useImperativeHandle } from "react";
 import { useNavigate } from "react-router-dom";
+import { useStyleContext } from "../context/StyleContext.tsx";
 
 const formSchema = z.object({
   title: z
@@ -31,6 +32,7 @@ const formSchema = z.object({
 const NoteOverview = forwardRef(
   ({ note }: { note: Note & { tags: Tag[] } }, ref) => {
     const queryClient = useQueryClient();
+    const { theme } = useStyleContext();
     const date = moment(note.updatedAt).format("D MMM YYYY");
     const { useUpdateNote } = useNotes();
     const updateNote = useUpdateNote();
@@ -98,7 +100,7 @@ const NoteOverview = forwardRef(
                   <FormControl>
                     <input
                       className={
-                        "text-preset-1 font-bold capitalize outline-none w-full"
+                        "text-preset-1 font-bold capitalize outline-none w-full bg-transparent"
                       }
                       {...field}
                     />
@@ -122,7 +124,7 @@ const NoteOverview = forwardRef(
                     </div>
                     <FormControl>
                       <input
-                        className={"py-2 outline-none capitalize"}
+                        className={`py-2 outline-none capitalize bg-transparent ${theme === "light" ? "text-neutral-800" : "text-white"}`}
                         {...field}
                         placeholder={
                           "Add tags separated by commas (e.g. Work, Planning)"
@@ -139,14 +141,13 @@ const NoteOverview = forwardRef(
                 </FormItem>
               )}
             />
-            <hr />
             <FormField
               name="description"
               render={({ field }) => (
                 <FormItem className={"h-full"}>
                   <FormControl>
                     <textarea
-                      className={"text-neutral-800 outline-none w-full h-full"}
+                      className={`${theme === "light" ? "text-neutral-800" : "text-white"} outline-none w-full h-full bg-transparent py-6`}
                       placeholder={"Start typing your note here..."}
                       {...field}
                     />
@@ -155,7 +156,9 @@ const NoteOverview = forwardRef(
                 </FormItem>
               )}
             />
-            <div className={"flex w-full gap-4 max-xl:hidden border-t pt-5"}>
+            <div
+              className={`flex w-full gap-4 max-xl:hidden border-t pt-5 ${theme === "light" ? "border-neutral-200" : "border-neutral-800"}`}
+            >
               <Button type={"submit"} className={"w-fit"}>
                 Save Note
               </Button>

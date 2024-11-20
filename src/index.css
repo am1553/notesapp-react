@@ -24,8 +24,8 @@
 }
 
 @layer base {
+
     body {
-        @apply text-neutral-950;
         list-style: none;
     }
 
@@ -34,11 +34,13 @@
     }
 
     .font-pacifico {
-        font-family: "Pacifico", cursive;;
+        font-family: "Pacifico", cursive;
     }
+
     .font-source-code-pro {
         font-family: "Source Code Pro", monospace;
     }
+
     .font-noto-serif {
         font-family: "Noto Serif", serif;
     }
@@ -48,11 +50,11 @@
     }
 
     .focus {
-        @apply focus-visible:outline-neutral-950 focus-visible:outline;
+        @apply focus-visible:outline-neutral-800 focus-visible:outline;
     }
 
     .content-sidebar {
-        @apply py-4 overflow-hidden flex flex-col gap-4 border-r
+        @apply py-4 overflow-hidden flex flex-col gap-4;
     }
 
     .active-icon {
@@ -66,6 +68,7 @@
     }
 
     .filter-white-icon {
-        filter: brightness(0) saturate(100%) invert(95%) sepia(0%) saturate(18%) hue-rotate(312deg) brightness(105%) contrast(104%);
+        filter: brightness(0) saturate(100%) invert(95%) sepia(0%) saturate(18%)
+        hue-rotate(312deg) brightness(105%) contrast(104%);
     }
 }

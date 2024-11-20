@@ -5,9 +5,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRef } from "react";
 import { useToast } from "../../../hooks/use-toast.ts";
+import { useStyleContext } from "../../../context/StyleContext.tsx";
 
 export default function ArchiveRoute() {
   const { noteID } = useParams();
+  const { theme } = useStyleContext();
   const { useNoteQuery, useUpdateNote, useDeleteNote } = useNotes();
   const queryClient = useQueryClient();
   const updateNote = useUpdateNote();
@@ -58,14 +60,16 @@ export default function ArchiveRoute() {
   if (note.isLoading) return <div>Loading...</div>;
   if (note.isError) return <div>Error</div>;
   return (
-    <div className="px-4 py-5 md:px-8 md:py-6 xl:p-0 flex flex-col gap-3 h-full">
+    <div className="px-4 py-5 md:px-8 md:py-6 flex flex-col gap-3 h-full">
       <ContentHeader
         onSave={handleSave}
         onArchive={() => handleArchive()}
         isArchived={note.data.isArchived}
         onDelete={handleDelete}
       />
-      <hr className={"xl:hidden"} />
+      <hr
+        className={`my-2 xl:hidden ${theme === "light" ? "border-neutral-200" : "border-neutral-800"}`}
+      />
       <NoteOverview note={note.data} />
     </div>
   );

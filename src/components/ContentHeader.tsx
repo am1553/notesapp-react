@@ -12,6 +12,7 @@ import {
   DialogTrigger,
 } from "./ui/dialog.tsx";
 import RestoreIcon from "../assets/icon-restore.svg";
+import { useStyleContext } from "../context/StyleContext.tsx";
 
 type Props = {
   showAction?: boolean;
@@ -29,18 +30,22 @@ export default function ContentHeader({
   showAction = true,
 }: Props) {
   const navigate = useNavigate();
-
+  const { theme } = useStyleContext();
   return (
     <div
-      className={
-        "flex text-preset-6 justify-between items-center text-neutral-600 xl:hidden"
-      }
+      className={`flex text-preset-6 justify-between items-center text-neutral-600 xl:hidden ${theme === "light" ? "text-neutral-800" : "text-white"}`}
     >
       <button
         onClick={() => navigate(-1)}
         className={"flex items-center gap-2"}
       >
-        <img src={LeftArrowIcon} height={18} width={18} alt="left arrow" />
+        <img
+          src={LeftArrowIcon}
+          height={18}
+          width={18}
+          alt="left arrow"
+          className={`${theme === "light" ? "" : "filter-white-icon"}`}
+        />
         <span>Go Back</span>
       </button>
       <div className={"flex-center gap-3"}>
@@ -49,7 +54,13 @@ export default function ContentHeader({
             <Dialog>
               <DialogTrigger>
                 <div className={"h-fit w-fit flex-center"}>
-                  <img src={BinIcon} height={18} width={18} alt="bin" />
+                  <img
+                    src={BinIcon}
+                    height={18}
+                    width={18}
+                    alt="bin"
+                    className={`${theme === "light" ? "" : "filter-white-icon"}`}
+                  />
                 </div>
               </DialogTrigger>
               <DialogContent>
@@ -93,6 +104,7 @@ export default function ContentHeader({
                     height={18}
                     width={18}
                     alt="archive"
+                    className={`${theme === "light" ? "" : "filter-white-icon"}`}
                   />
                 </div>
               </DialogTrigger>

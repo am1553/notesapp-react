@@ -2,6 +2,7 @@ import { RadioGroupItem } from "../../../components/ui/radio-group.tsx";
 import { Label } from "../../../components/ui/label.tsx";
 
 import { useRef } from "react";
+import { useStyleContext } from "../../../context/StyleContext.tsx";
 export default function SettingItem({
   title,
   description,
@@ -13,17 +14,26 @@ export default function SettingItem({
   icon: string;
   value: "light" | "dark" | "system" | "sans-serif" | "serif" | "monospace";
 }) {
+  const { theme } = useStyleContext();
   const radioRef = useRef<HTMLButtonElement>(null);
 
   const handleClick = () => radioRef.current?.click();
 
   return (
     <div
-      className="flex items-center gap-4 p-4 rounded-md stroke-1 stroke-neutral-200 bg-neutral-100 cursor-pointer"
+      className={`flex items-center gap-4 p-4 rounded-md stroke-1 ${theme === "light" ? "stroke-neutral-200 bg-neutral-100" : "bg-neutral-800"} cursor-pointer`}
       onClick={handleClick}
     >
-      <div className="flex-center h-10 w-10 border-2 border-neutral-200 rounded-xl bg-white pointer-events-none">
-        <img src={icon} height={24} width={24} alt="sun" />
+      <div
+        className={`flex-center h-10 w-10 border-2 rounded-xl pointer-events-none ${theme === "light" ? "bg-white border-neutral-200" : "bg-neutral-950 border-neutral-800"}`}
+      >
+        <img
+          src={icon}
+          height={24}
+          width={24}
+          alt="sun"
+          className={`${theme === "light" ? "" : "filter-white-icon"}`}
+        />
       </div>
       <div className="flex flex-col gap-1 flex-1">
         <Label

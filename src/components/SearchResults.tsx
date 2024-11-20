@@ -1,8 +1,10 @@
 import NoteSummary from "../features/notes/components/NoteSummary.tsx";
 import { useNotes } from "../service/useNotes.ts";
 import { useSearchParams } from "react-router-dom";
+import { useStyleContext } from "../context/StyleContext.tsx";
 
 export default function SearchResults() {
+  const { theme } = useStyleContext();
   const [searchParams] = useSearchParams();
   const { useNotesQuery } = useNotes();
 
@@ -29,7 +31,11 @@ export default function SearchResults() {
       {data.map((note: Note, i: number) => (
         <li key={note.id}>
           <NoteSummary note={note} rootPath={`app/search`} />
-          {i < data.length - 1 ? <hr className={"my-2"} /> : null}
+          {i < data.length - 1 ? (
+            <hr
+              className={`my-2 ${theme === "light" ? "border-neutral-200" : "border-neutral-800"}`}
+            />
+          ) : null}
         </li>
       ))}
     </ul>

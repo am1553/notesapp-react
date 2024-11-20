@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { useToast } from "../../../hooks/use-toast.ts";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNotes } from "../../../service/useNotes.ts";
+import { useStyleContext } from "../../../context/StyleContext.tsx";
 
 const formSchema = z.object({
   title: z
@@ -28,6 +29,7 @@ const formSchema = z.object({
 });
 export default function CreateNoteRoute() {
   const { toast } = useToast();
+  const { theme } = useStyleContext();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { useCreateNote } = useNotes();
@@ -77,14 +79,14 @@ export default function CreateNoteRoute() {
   };
 
   return (
-    <div
-      className={"h-full flex flex-col gap-2 px-4 py-5 md:px-8 md:py-6 xl:p-0"}
-    >
+    <div className={"h-full flex flex-col gap-2 px-4 py-5 md:px-8 md:py-6"}>
       <ContentHeader
         showAction={false}
         onSave={form.handleSubmit(handleSave)}
       />
-      <hr />
+      <hr
+        className={`my-2 xl:hidden ${theme === "light" ? "border-neutral-200" : "border-neutral-800"}`}
+      />
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleSave)}
@@ -98,7 +100,7 @@ export default function CreateNoteRoute() {
                   <input
                     placeholder={"Enter a title..."}
                     className={
-                      "text-preset-1 font-bold capitalize outline-none w-full placeholder:normal-case"
+                      "text-preset-1 font-bold capitalize outline-none w-full placeholder:normal-case bg-transparent"
                     }
                     {...field}
                   />
@@ -122,9 +124,7 @@ export default function CreateNoteRoute() {
                   </div>
                   <FormControl>
                     <input
-                      className={
-                        "py-2 outline-none capitalize placeholder:normal-case"
-                      }
+                      className={`py-2 outline-none ${theme === "light" ? "text-neutral-800" : "text-white"} capitalize placeholder:normal-case bg-transparent`}
                       {...field}
                       placeholder={"e.g. Work, Planning"}
                     />
@@ -139,14 +139,16 @@ export default function CreateNoteRoute() {
               </FormItem>
             )}
           />
-          <hr />
+          <hr
+            className={`my-2 ${theme === "light" ? "border-neutral-200" : "border-neutral-800"}`}
+          />
           <FormField
             name="description"
             render={({ field }) => (
               <FormItem className={"h-full"}>
                 <FormControl>
                   <textarea
-                    className={"text-neutral-800 outline-none w-full h-full"}
+                    className={`text-neutral-800 py-6 outline-none w-full h-full bg-transparent focus-visible:placeholder:opacity-0 ${theme === "light" ? "text-neutral-800" : "text-white"}`}
                     placeholder={"Start typing your note here..."}
                     {...field}
                   />
