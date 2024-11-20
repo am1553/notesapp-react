@@ -3,7 +3,8 @@ import { cn } from "../../lib/utils.ts";
 import { useStyleContext } from "../../context/StyleContext.tsx";
 const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
   ({ className, type, ...props }, ref) => {
-    const { theme } = useStyleContext();
+    const styleContext = useStyleContext();
+    const theme = styleContext.theme ? styleContext.theme : "light";
     return (
       <input
         type={type}
